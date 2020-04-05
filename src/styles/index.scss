@@ -3,3 +3,9 @@
 
 // Normalizing styles for different browsers
 @import "normalize";
+
+// SCSS Mixin
+@import "mixin";
+
+// Button style
+@import "../components/Button/button.style";
