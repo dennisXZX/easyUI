@@ -1,0 +1,42 @@
+/* SCSS Partials, which would not be compiled into CSS */
+
+// Line height
+$line-height-base:            1.5 !default;
+$line-height-lg:              2 !default;
+$line-height-sm:              1.25 !default;
+
+// Body
+$body-bg:                     $white !default;
+$body-color:                  $gray-900 !default;
+$body-text-align:             null !default;
+
+// Spacing
+$spacer:                      1rem !default;
+
+// Misc
+$text-muted:                        $gray-600 !default;
+
+$blockquote-small-color:            $gray-600 !default;
+$blockquote-small-font-size:        $font-size-sm !default;
+$blockquote-font-size:              $font-size-base * 1.25 !default;
+
+$hr-color:                          inherit !default;
+$hr-height:                         1px !default;
+$hr-opacity:                        .25 !default;
+
+$legend-margin-bottom:              .5rem !default;
+$legend-font-size:                  1.5rem !default;
+$legend-font-weight:                null !default;
+
+$mark-padding:                      .2em !default;
+
+$list-inline-padding:               .5rem !default;
+
+$mark-bg:                           #fcf8e3 !default;
+
+$hr-margin-y:                       $spacer !default;
+
+// Code
+$code-font-size:                    $font-size-sm !default;
+$code-color:                        $pink !default;
+$pre-color:                         null !default;
