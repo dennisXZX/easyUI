@@ -1,3 +1,10 @@
+/**
+ * Example commit messages
+ *
+ * - feat(blog): add comment section
+ * - chore: run tests on travis ci
+ * */
+
 module.exports = {
   extends: ["@commitlint/config-conventional"],
   rules: {
