@@ -14,6 +14,10 @@
   cursor: pointer;
   transition: $btn-transition;
 
+  &:focus {
+    outline: none;
+  }
+
   &.disabled,
   &[disabled] {
     cursor: not-allowed;
@@ -69,3 +73,6 @@
   }
 }
 
+.btn-circle {
+  border-radius: 50%;
+}
