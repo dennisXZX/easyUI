@@ -33,7 +33,6 @@
     "@typescript-eslint/no-empty-function": "error",
     "@typescript-eslint/no-useless-constructor": "error",
     "arrow-body-style": ["off", "as-needed"],
-    "arrow-parens": ["error", "always"],
     "capitalized-comments": [
       "off",
       "always",
