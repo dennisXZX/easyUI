@@ -1,8 +1,8 @@
-// Configurable styles
-@import 'variables/index';
-
 // Normalizing styles for different browsers
 @import 'normalize';
+
+// Configurable styles
+@import 'variables/index';
 
 // SCSS Mixin
 @import 'mixin';
@@ -12,3 +12,4 @@
 
 // Menu style
 @import '../components/Menu/menu.style';
+
