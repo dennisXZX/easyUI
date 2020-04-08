@@ -10,15 +10,15 @@
 	vertical-align: middle;
 	background-image: none;
 	border: $btn-border-width solid transparent;
+	box-shadow: $btn-box-shadow;
+	cursor: pointer;
+	transition: $btn-transition;
 	@include button-size(
 		$btn-padding-y,
 		$btn-padding-x,
 		$btn-font-size,
 		$border-radius
 	);
-	box-shadow: $btn-box-shadow;
-	cursor: pointer;
-	transition: $btn-transition;
 
 	&:focus {
 		outline: none;
