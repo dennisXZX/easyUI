@@ -1,14 +1,14 @@
 // Configurable styles
-@import "variables/index";
+@import 'variables/index';
 
 // Normalizing styles for different browsers
-@import "normalize";
+@import 'normalize';
 
 // SCSS Mixin
-@import "mixin";
+@import 'mixin';
 
 // Button style
-@import "../components/Button/button.style";
+@import '../components/Button/button.style';
 
 // Menu style
-@import "../components/Menu/menu.style";
+@import '../components/Menu/menu.style';

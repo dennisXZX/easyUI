@@ -20,7 +20,7 @@
 	},
 	"scripts": {
 		"lint": "eslint --ext .tsx src --color",
-		"format": "prettier --write \"src/**/*.{ts,tsx}\"",
+		"format": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
