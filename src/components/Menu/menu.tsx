@@ -31,6 +31,7 @@ const Menu: React.FC<IMenuProps> = props => {
 
 	const classes = classNames('menu', className, {
 		'menu-vertical': mode === MenuMode.Vertical,
+		'menu-horizontal': mode !== MenuMode.Vertical,
 	});
 
 	const handleClick = (index: number) => {
@@ -54,7 +55,7 @@ const Menu: React.FC<IMenuProps> = props => {
 
 			const { displayName } = childElement.type;
 
-			if (displayName === 'MenuItem') {
+			if (displayName === 'MenuItem' || displayName === 'SubMenu') {
 				return React.cloneElement(childElement, { index });
 			} else {
 				console.error(
