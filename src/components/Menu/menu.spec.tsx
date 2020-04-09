@@ -6,11 +6,9 @@ import MenuItem from './menu-item';
 const generateMenu = (props: IMenuProps) => {
 	return (
 		<Menu {...props}>
-			<MenuItem index={0}>active</MenuItem>
-			<MenuItem index={1} disabled>
-				disabled
-			</MenuItem>
-			<MenuItem index={2}>link</MenuItem>
+			<MenuItem>active</MenuItem>
+			<MenuItem disabled>disabled</MenuItem>
+			<MenuItem>link</MenuItem>
 		</Menu>
 	);
 };

@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import classNames from 'classnames';
+import { IMenuItemProps } from './menu-item';
 
 export enum MenuMode {
 	Horizontal = 'horizontal',
@@ -45,10 +46,28 @@ const Menu: React.FC<IMenuProps> = props => {
 		onSelect: handleClick,
 	};
 
+	const renderChildren = () => {
+		return React.Children.map(children, (child, index) => {
+			const childElement = child as React.FunctionComponentElement<
+				IMenuItemProps
+			>;
+
+			const { displayName } = childElement.type;
+
+			if (displayName === 'MenuItem') {
+				return React.cloneElement(childElement, { index });
+			} else {
+				console.error(
+					'Error: Menu has a child that is not a MenuItem component.'
+				);
+			}
+		});
+	};
+
 	return (
 		<ul className={classes} style={style} data-testid="test-menu">
 			<MenuContext.Provider value={menuContext}>
-				{children}
+				{renderChildren()}
 			</MenuContext.Provider>
 		</ul>
 	);
