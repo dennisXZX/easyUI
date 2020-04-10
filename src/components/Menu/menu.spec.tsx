@@ -1,7 +1,8 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, wait } from '@testing-library/react';
 import Menu, { IMenuProps, MenuMode } from './menu';
 import MenuItem from './menu-item';
+import SubMenu from './sub-menu';
 
 const generateMenu = (props: IMenuProps) => {
 	return (
@@ -9,8 +10,27 @@ const generateMenu = (props: IMenuProps) => {
 			<MenuItem>active</MenuItem>
 			<MenuItem disabled>disabled</MenuItem>
 			<MenuItem>link</MenuItem>
+			<SubMenu title="subMenu">
+				<MenuItem>submenuOption1</MenuItem>
+			</SubMenu>
 		</Menu>
 	);
+};
+
+const createStyleFile = () => {
+	const cssFile = `
+		.submenu {
+			display: none;
+		}
+		
+		.submenu.menu-opened {
+			display: block;
+		}
+	`;
+
+	const style = document.createElement('style');
+	style.innerHTML = cssFile;
+	return style;
 };
 
 describe('Menu and MenuItem component', () => {
@@ -18,15 +38,15 @@ describe('Menu and MenuItem component', () => {
 
 	beforeEach(() => {
 		defaultProps = {
-			defaultIndex: 0,
+			defaultIndex: '0',
 			onSelect: jest.fn(),
-			className: 'test',
+			className: 'test'
 		};
 	});
 
 	it('should render correct Menu and MenuItem based on default props', () => {
 		const menuProps = {
-			...defaultProps,
+			...defaultProps
 		};
 
 		const wrapper = render(generateMenu(menuProps));
@@ -36,14 +56,14 @@ describe('Menu and MenuItem component', () => {
 
 		expect(menuElement).toBeInTheDocument();
 		expect(menuElement).toHaveClass('menu test');
-		expect(menuElement.getElementsByTagName('li').length).toEqual(3);
+		expect(menuElement.querySelectorAll(':scope > li').length).toEqual(4);
 		expect(activeElement).toHaveClass('menu-item is-active');
 		expect(disabledElement).toHaveClass('menu-item is-disabled');
 	});
 
 	it('should change active state and call the callback', () => {
 		const menuProps = {
-			...defaultProps,
+			...defaultProps
 		};
 
 		const wrapper = render(generateMenu(menuProps));
@@ -53,12 +73,12 @@ describe('Menu and MenuItem component', () => {
 		fireEvent.click(thirdItem);
 		expect(thirdItem).toHaveClass('menu-item is-active');
 		expect(activeElement).not.toHaveClass('is-active');
-		expect(defaultProps.onSelect).toHaveBeenCalledWith(2);
+		expect(defaultProps.onSelect).toHaveBeenCalledWith('2');
 	});
 
 	it('should not change active state and call the callback when a disabled button is clicked', () => {
 		const menuProps = {
-			...defaultProps,
+			...defaultProps
 		};
 
 		const wrapper = render(generateMenu(menuProps));
@@ -72,12 +92,72 @@ describe('Menu and MenuItem component', () => {
 	it('should render vertical mode when mode is set to vertical', () => {
 		const menuProps = {
 			...defaultProps,
-			mode: MenuMode.Vertical,
+			mode: MenuMode.Vertical
 		};
 
 		const wrapper = render(generateMenu(menuProps));
 		const menuElement = wrapper.getByTestId('test-menu');
 
 		expect(menuElement).toHaveClass('menu-vertical');
+	});
+
+	it('should show submenu items when hover on subMenu in horizontal mode', async () => {
+		const menuProps = {
+			...defaultProps,
+			mode: MenuMode.Horizontal
+		};
+
+		const wrapper = render(generateMenu(menuProps));
+		// Add CSS file to menu so we can test its visibility
+		wrapper.container.append(createStyleFile());
+
+		// Submenu options are not visible by default
+		expect(wrapper.queryByText('submenuOption1')).not.toBeVisible();
+
+		const submenuElement = wrapper.getByText('subMenu');
+		fireEvent.mouseEnter(submenuElement);
+
+		// We need to wait here because setTimeout() is used to toggle submenu visibility
+		await wait(() => {
+			expect(wrapper.queryByText('submenuOption1')).toBeVisible();
+		});
+
+		fireEvent.click(wrapper.getByText('submenuOption1'));
+		expect(menuProps.onSelect).toHaveBeenCalledWith('3-0');
+
+		fireEvent.mouseLeave(submenuElement);
+
+		await wait(() => {
+			expect(wrapper.queryByText('submenuOption1')).not.toBeVisible();
+		});
+	});
+
+	it('should show submenu items when click on subMenu in vertical mode', () => {
+		const menuProps = {
+			...defaultProps,
+			mode: MenuMode.Vertical
+		};
+
+		const wrapper = render(generateMenu(menuProps));
+		wrapper.container.append(createStyleFile());
+
+		expect(wrapper.queryByText('submenuOption1')).not.toBeVisible();
+
+		const submenuElement = wrapper.getByText('subMenu');
+		fireEvent.click(submenuElement);
+
+		expect(wrapper.getByText('submenuOption1')).toBeVisible();
+	});
+
+	it('should expand relevant submenu menu by default if defaultOpenedVerticalSubMenus is provided', () => {
+		const menuProps = {
+			...defaultProps,
+			mode: MenuMode.Vertical,
+			defaultOpenedVerticalSubMenus: ['3']
+		};
+
+		const wrapper = render(generateMenu(menuProps));
+
+		expect(wrapper.getByText('submenuOption1')).toBeVisible();
 	});
 });

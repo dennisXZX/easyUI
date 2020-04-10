@@ -5,7 +5,7 @@ import { MenuContext } from './menu';
 export interface IMenuItemProps {
 	className?: string;
 	disabled?: boolean;
-	index?: number;
+	index?: string;
 	style?: React.CSSProperties;
 }
 
@@ -16,11 +16,11 @@ const MenuItem: React.FC<IMenuItemProps> = props => {
 
 	const classes = classNames('menu-item', className, {
 		'is-disabled': disabled,
-		'is-active': menuContext.index === index,
+		'is-active': menuContext.index === index
 	});
 
 	const handleClick = () => {
-		if (menuContext.onSelect && !disabled && typeof index === 'number') {
+		if (menuContext.onSelect && !disabled && typeof index === 'string') {
 			menuContext.onSelect(index);
 		}
 	};

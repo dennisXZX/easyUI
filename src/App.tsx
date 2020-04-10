@@ -12,7 +12,23 @@ function App() {
 			>
 				<MenuItem>link 1</MenuItem>
 				<MenuItem>link 2</MenuItem>
-				<SubMenu title="dropdown">
+				<SubMenu title="Submenu">
+					<MenuItem>link 1</MenuItem>
+					<MenuItem>link 2</MenuItem>
+				</SubMenu>
+				<MenuItem>link 3</MenuItem>
+			</Menu>
+
+			<hr />
+
+			<Menu
+				onSelect={index => console.log(index)}
+				mode={MenuMode.Vertical}
+				defaultOpenedVerticalSubMenus={['2']}
+			>
+				<MenuItem>link 1</MenuItem>
+				<MenuItem>link 2</MenuItem>
+				<SubMenu title="Submenu">
 					<MenuItem>link 1</MenuItem>
 					<MenuItem>link 2</MenuItem>
 				</SubMenu>
