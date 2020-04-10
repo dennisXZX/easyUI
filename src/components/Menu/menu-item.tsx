@@ -9,6 +9,8 @@ export interface IMenuItemProps {
 	style?: React.CSSProperties;
 }
 
+export const MENU_ITEM = 'MenuItem';
+
 const MenuItem: React.FC<IMenuItemProps> = props => {
 	const { children, className, disabled, index, style } = props;
 
@@ -16,7 +18,7 @@ const MenuItem: React.FC<IMenuItemProps> = props => {
 
 	const classes = classNames('menu-item', className, {
 		'is-disabled': disabled,
-		'is-active': menuContext.index === index
+		'is-active': menuContext.currentActiveIndex === index
 	});
 
 	const handleClick = () => {
@@ -32,6 +34,6 @@ const MenuItem: React.FC<IMenuItemProps> = props => {
 	);
 };
 
-MenuItem.displayName = 'MenuItem';
+MenuItem.displayName = MENU_ITEM;
 
 export default MenuItem;

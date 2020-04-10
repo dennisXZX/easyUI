@@ -23,7 +23,7 @@ const createStyleFile = () => {
 			display: none;
 		}
 		
-		.submenu.menu-opened {
+		.submenu.menu-expanded {
 			display: block;
 		}
 	`;
@@ -149,11 +149,11 @@ describe('Menu and MenuItem component', () => {
 		expect(wrapper.getByText('submenuOption1')).toBeVisible();
 	});
 
-	it('should expand relevant submenu menu by default if defaultOpenedVerticalSubMenus is provided', () => {
+	it('should expand relevant submenu menu by default if defaultExpandedVerticalSubMenus is provided', () => {
 		const menuProps = {
 			...defaultProps,
 			mode: MenuMode.Vertical,
-			defaultOpenedVerticalSubMenus: ['3']
+			defaultExpandedVerticalSubMenus: ['3']
 		};
 
 		const wrapper = render(generateMenu(menuProps));

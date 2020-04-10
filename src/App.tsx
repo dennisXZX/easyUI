@@ -24,7 +24,7 @@ function App() {
 			<Menu
 				onSelect={index => console.log(index)}
 				mode={MenuMode.Vertical}
-				defaultOpenedVerticalSubMenus={['2']}
+				defaultExpandedVerticalSubMenus={['2']}
 			>
 				<MenuItem>link 1</MenuItem>
 				<MenuItem>link 2</MenuItem>

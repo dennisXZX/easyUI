@@ -58,7 +58,7 @@
 		}
 	}
 
-	.is-vertical.is-opened {
+	.is-vertical.is-expanded {
 		.arrow-icon {
 			transform: rotate(180deg) !important;
 		}
@@ -83,7 +83,7 @@
 		}
 	}
 
-	.submenu.menu-opened {
+	.submenu.menu-expanded {
 		display: block;
 	}
 }

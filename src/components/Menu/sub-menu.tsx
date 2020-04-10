@@ -1,7 +1,7 @@
 import React, { FunctionComponentElement, useContext, useState } from 'react';
 import classNames from 'classnames';
 import { MenuContext, MenuMode } from './menu';
-import { IMenuItemProps } from './menu-item';
+import { IMenuItemProps, MENU_ITEM } from './menu-item';
 
 export interface ISubMenuProps {
 	title: string;
@@ -9,36 +9,40 @@ export interface ISubMenuProps {
 	index?: string;
 }
 
+export const SUBMENU = 'SubMenu';
+
 const SubMenu: React.FC<ISubMenuProps> = props => {
 	const { children, className, index, title } = props;
 	const menuContext = useContext(MenuContext);
-	const openedSubMenus = menuContext.defaultOpenedVerticalSubMenus as Array<
+	const expandedSubMenus = menuContext.defaultExpandedVerticalSubMenus as Array<
 		string
 	>;
-	const isSubmenuOpened =
+	const isMenuExpandedByDefault =
 		index && menuContext.mode === MenuMode.Vertical
-			? openedSubMenus.includes(index)
+			? expandedSubMenus.includes(index)
 			: false;
 
-	const [isMenuOpen, setIsMenuOpen] = useState(isSubmenuOpened);
+	const [isMenuExpanded, setIsMenuExpanded] = useState(
+		isMenuExpandedByDefault
+	);
 
 	const classes = classNames('menu-item submenu-item', className, {
-		'is-active': menuContext.index === index
+		'is-active': menuContext.currentActiveIndex === index
 	});
 
 	const handleClick = (event: React.MouseEvent) => {
 		event.preventDefault();
 
-		setIsMenuOpen(!isMenuOpen);
+		setIsMenuExpanded(!isMenuExpanded);
 	};
 
-	let timer: any;
+	let timer: ReturnType<typeof setTimeout>;
 	const handleMouse = (event: React.MouseEvent, toggle: boolean) => {
 		clearTimeout(timer);
 		event.preventDefault();
 
 		timer = setTimeout(() => {
-			setIsMenuOpen(toggle);
+			setIsMenuExpanded(toggle);
 		}, 300);
 	};
 
@@ -50,7 +54,7 @@ const SubMenu: React.FC<ISubMenuProps> = props => {
 			: {};
 
 	const hoverEvents =
-		menuContext.mode !== MenuMode.Vertical
+		menuContext.mode === MenuMode.Horizontal
 			? {
 					onMouseEnter: (event: React.MouseEvent) => {
 						handleMouse(event, true);
@@ -61,9 +65,9 @@ const SubMenu: React.FC<ISubMenuProps> = props => {
 			  }
 			: {};
 
-	const renderChildren = () => {
+	const renderSubmenuItems = () => {
 		const subMenuClasses = classNames('submenu', {
-			'menu-opened': isMenuOpen
+			'menu-expanded': isMenuExpanded
 		});
 
 		const childrenComponent = React.Children.map(
@@ -75,7 +79,7 @@ const SubMenu: React.FC<ISubMenuProps> = props => {
 
 				const { displayName } = childElement.type;
 
-				if (displayName === 'MenuItem') {
+				if (displayName === MENU_ITEM) {
 					return React.cloneElement(childElement, {
 						index: `${index}-${submenuIndex}`
 					});
@@ -95,11 +99,11 @@ const SubMenu: React.FC<ISubMenuProps> = props => {
 			<div className="submenu-title" {...clickEvents}>
 				{title}
 			</div>
-			{renderChildren()}
+			{renderSubmenuItems()}
 		</li>
 	);
 };
 
-SubMenu.displayName = 'SubMenu';
+SubMenu.displayName = SUBMENU;
 
 export default SubMenu;
