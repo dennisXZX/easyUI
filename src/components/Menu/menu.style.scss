@@ -65,26 +65,21 @@
 	}
 
 	.submenu {
-		display: none;
 		list-style: none;
 		padding-left: 0;
 		white-space: nowrap;
-		transition: $menu-transition;
 
 		.menu-item {
 			padding: $menu-item-padding-y $menu-item-padding-x;
 			cursor: pointer;
 			transition: $menu-transition;
 			color: $body-color;
+
 			&.is-active,
 			&:hover {
 				color: $menu-item-active-color !important;
 			}
 		}
-	}
-
-	.submenu.menu-expanded {
-		display: block;
 	}
 }
 
@@ -116,8 +111,7 @@
 		&.is-active,
 		&:hover {
 			border-bottom: 0;
-			border-left: $menu-item-active-border-width solid
-				$menu-item-active-color;
+			border-left: $menu-item-active-border-width solid $menu-item-active-color;
 		}
 	}
 }

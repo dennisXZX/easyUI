@@ -1,6 +1,5 @@
 import React from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import Icon from './components/Icon/icon';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import Menu, { MenuMode } from './components/Menu/menu';
 import MenuItem from './components/Menu/menu-item';
