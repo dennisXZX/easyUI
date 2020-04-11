@@ -1,0 +1,6 @@
+// Iterate through SCSS map to generate icon theme colors
+@each $key, $value in $theme-colors {
+  .icon-#{$key} {
+    color: $value;
+  }
+}
