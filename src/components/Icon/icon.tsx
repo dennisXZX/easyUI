@@ -5,18 +5,19 @@ import {
 	FontAwesomeIconProps
 } from '@fortawesome/react-fontawesome';
 
-export type ThemeProps =
-	| 'primary'
-	| 'secondary'
-	| 'success'
-	| 'info'
-	| 'warning'
-	| 'danger'
-	| 'light'
-	| 'dark';
+export enum ThemeType {
+	Primary = 'primary',
+	Secondary = 'secondary',
+	Success = 'success',
+	Info = 'info',
+	Warning = 'warning',
+	Danger = 'danger',
+	Light = 'light',
+	Dark = 'dark'
+}
 
 export interface IconProps extends FontAwesomeIconProps {
-	theme?: ThemeProps;
+	theme?: ThemeType;
 }
 
 const Icon: React.FC<IconProps> = props => {
