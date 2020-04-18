@@ -17,6 +17,7 @@ export const buttonWithSize = () => (
 		<Button onClick={action('clicked')} size={ButtonSize.Large}>
 			Large
 		</Button>
+
 		<Button onClick={action('clicked')} size={ButtonSize.Small}>
 			Small
 		</Button>
@@ -28,11 +29,13 @@ export const buttonWithType = () => (
 		<Button onClick={action('clicked')} btnType={ButtonType.Primary}>
 			Primary
 		</Button>
+
 		<Button onClick={action('clicked')} btnType={ButtonType.Danger}>
-			Primary
+			Danger
 		</Button>
+
 		<Button onClick={action('clicked')} btnType={ButtonType.Link} href="">
-			Primary
+			Link
 		</Button>
 	</>
 );

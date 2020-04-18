@@ -20,13 +20,13 @@ export const horizontalMenu = () => {
 
 	return (
 		<Menu {...menuProps}>
-			<MenuItem>active</MenuItem>
-			<MenuItem disabled>disabled</MenuItem>
-			<MenuItem>link</MenuItem>
-			<SubMenu title="subMenu">
-				<MenuItem>submenuOption1</MenuItem>
-				<MenuItem>submenuOption2</MenuItem>
-				<MenuItem>submenuOption3</MenuItem>
+			<MenuItem>Active</MenuItem>
+			<MenuItem disabled>Disabled</MenuItem>
+			<MenuItem>Link</MenuItem>
+			<SubMenu title="SubMenu">
+				<MenuItem>Submenu Option 1</MenuItem>
+				<MenuItem>Submenu Option 2</MenuItem>
+				<MenuItem>Submenu Option 3</MenuItem>
 			</SubMenu>
 		</Menu>
 	);
@@ -42,13 +42,13 @@ export const verticalMenu = () => {
 
 	return (
 		<Menu {...menuProps}>
-			<MenuItem>active</MenuItem>
-			<MenuItem disabled>disabled</MenuItem>
-			<MenuItem>link</MenuItem>
-			<SubMenu title="subMenu">
-				<MenuItem>submenuOption1</MenuItem>
-				<MenuItem>submenuOption2</MenuItem>
-				<MenuItem>submenuOption3</MenuItem>
+			<MenuItem>Active</MenuItem>
+			<MenuItem disabled>Disabled</MenuItem>
+			<MenuItem>Link</MenuItem>
+			<SubMenu title="SubMenu">
+				<MenuItem>Submenu Option 1</MenuItem>
+				<MenuItem>Submenu Option 2</MenuItem>
+				<MenuItem>Submenu Option 3</MenuItem>
 			</SubMenu>
 		</Menu>
 	);

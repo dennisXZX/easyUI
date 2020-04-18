@@ -112,6 +112,7 @@ const SubMenu: React.FC<ISubMenuProps> = props => {
 				{title}
 				<Icon icon="angle-down" className="arrow-icon" />
 			</div>
+
 			{renderSubmenuItems()}
 		</li>
 	);
