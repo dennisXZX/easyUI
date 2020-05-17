@@ -52,7 +52,7 @@ describe('Menu and MenuItem component', () => {
 
 	beforeEach(() => {
 		defaultProps = {
-			defaultIndex: '0',
+			defaultActiveIndex: '0',
 			onSelect: jest.fn(),
 			className: 'test'
 		};

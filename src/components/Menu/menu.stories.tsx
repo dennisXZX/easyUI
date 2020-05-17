@@ -12,7 +12,7 @@ export default {
 
 export const horizontalMenu = () => {
 	const menuProps = {
-		defaultIndex: '0',
+		defaultActiveIndex: '0',
 		defaultExpandedVerticalSubMenus: [],
 		mode: MenuMode.Horizontal,
 		onSelect: action('selected')
@@ -34,7 +34,7 @@ export const horizontalMenu = () => {
 
 export const verticalMenu = () => {
 	const menuProps = {
-		defaultIndex: '0',
+		defaultActiveIndex: '0',
 		defaultExpandedVerticalSubMenus: [],
 		mode: MenuMode.Vertical,
 		onSelect: action('selected')

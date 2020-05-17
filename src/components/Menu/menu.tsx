@@ -12,7 +12,7 @@ type SelectCallback = (selectedIndex: string) => void;
 
 export interface IMenuProps {
 	className?: string;
-	defaultIndex?: string;
+	defaultActiveIndex?: string;
 	defaultExpandedVerticalSubMenus?: string[];
 	mode?: MenuMode;
 	onSelect?: SelectCallback;
@@ -34,14 +34,16 @@ const Menu: React.FC<IMenuProps> = props => {
 	const {
 		children,
 		className,
-		defaultIndex,
+		defaultActiveIndex,
 		defaultExpandedVerticalSubMenus,
 		mode,
 		onSelect,
 		style
 	} = props;
 
-	const [currentActiveIndex, setCurrentActiveIndex] = useState(defaultIndex);
+	const [currentActiveIndex, setCurrentActiveIndex] = useState(
+		defaultActiveIndex
+	);
 
 	const classes = classNames('menu', className, {
 		'menu-vertical': mode === MenuMode.Vertical,
@@ -91,7 +93,7 @@ const Menu: React.FC<IMenuProps> = props => {
 };
 
 Menu.defaultProps = {
-	defaultIndex: '0',
+	defaultActiveIndex: '0',
 	defaultExpandedVerticalSubMenus: [],
 	mode: MenuMode.Horizontal
 };
