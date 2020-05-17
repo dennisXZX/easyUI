@@ -15,7 +15,7 @@ export interface IInputProps
 	icon?: IconProp;
 	prepend?: string | ReactElement;
 	append?: string | ReactElement;
-	style: CSSProperties;
+	style?: CSSProperties;
 }
 
 const Input: FC<IInputProps> = props => {
