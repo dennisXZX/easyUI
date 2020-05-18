@@ -130,10 +130,10 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 	/** Generate suggestion list */
 	const generateSuggestionList = () => {
 		return (
-			<ul>
+			<ul className="suggestion-list">
 				{suggestions.map((item, index) => {
 					const classes = classNames('suggestion-item', {
-						'item-highlighted': index === highlightIndex
+						'is-highlighted': index === highlightIndex
 					});
 
 					return (
@@ -151,10 +151,11 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 			<Input value={inputValue} onChange={handleInputChange} onKeyDown={handleKeydown} {...restProps} />
 
 			{isLoading && (
-				<ul>
+				<div className="suggestions-loading-icon">
 					<Icon icon="spinner" spin />
-				</ul>
+				</div>
 			)}
+
 			{suggestions.length > 0 && generateSuggestionList()}
 		</div>
 	);

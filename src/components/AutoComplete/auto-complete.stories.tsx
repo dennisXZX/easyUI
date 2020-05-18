@@ -20,7 +20,7 @@ export const simpleAutoComplete = () => {
 		return lakers.filter(name => name.includes(query)).map(name => ({ value: name }));
 	};
 
-	return <AutoComplete style={{ width: '300px' }} fetchSuggestions={handleFetch} onSelect={action('selected')} />;
+	return <AutoComplete fetchSuggestions={handleFetch} onSelect={action('selected')} />;
 };
 
 export const customTemplateAutoComplete = () => {
@@ -52,7 +52,7 @@ export const customTemplateAutoComplete = () => {
 		);
 	};
 
-	return <AutoComplete style={{ width: '300px' }} fetchSuggestions={handleFetch} onSelect={action('selected')} renderOption={renderOption} />;
+	return <AutoComplete fetchSuggestions={handleFetch} onSelect={action('selected')} renderOption={renderOption} />;
 };
 
 export const asynchronousAutoComplete = () => {
@@ -65,5 +65,5 @@ export const asynchronousAutoComplete = () => {
 			});
 	};
 
-	return <AutoComplete style={{ width: '300px' }} fetchSuggestions={handleFetch} onSelect={action('selected')} />;
+	return <AutoComplete fetchSuggestions={handleFetch} onSelect={action('selected')} />;
 };
