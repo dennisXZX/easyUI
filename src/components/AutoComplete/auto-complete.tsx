@@ -4,6 +4,7 @@ import Icon from '../Icon/icon';
 import useDebounce from '../../hooks/useDebounce';
 import classNames from 'classnames';
 import useClickOutsideComponent from '../../hooks/useClickOutsideComponent';
+import Transition from '../Transition/transition';
 
 interface IDataSourceObject {
 	value: string;
@@ -22,7 +23,8 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 
 	const [inputValue, setInputValue] = useState((value as string) || '');
 	const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoadingData, setIsLoadingData] = useState(false);
+	const [isShowingList, setIsShowingList] = useState(false);
 	const [highlightIndex, setHighlightIndex] = useState(-1);
 	const debouncedValue = useDebounce<string>(inputValue, 500);
 	const triggerSearchRef = useRef(false);
@@ -38,21 +40,31 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 		const shouldTriggerSearch = triggerSearchRef.current;
 
 		if (debouncedValue && shouldTriggerSearch) {
+			setSuggestions([]);
+
 			const results = fetchSuggestions(debouncedValue);
 
 			// Handle asynchronously if the results is a Promise
 			if (results instanceof Promise) {
-				setIsLoading(true);
+				setIsLoadingData(true);
 
 				results.then(data => {
 					setSuggestions(data);
-					setIsLoading(false);
+					setIsLoadingData(false);
+
+					if (data.length > 0) {
+						setIsShowingList(true);
+					}
 				});
 			} else {
 				setSuggestions(results);
+
+				if (results.length > 0) {
+					setIsShowingList(true);
+				}
 			}
 		} else {
-			setSuggestions([]);
+			setIsShowingList(false);
 		}
 
 		// Reset hightlight item every time a new suggestion list is generated
@@ -98,7 +110,7 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 				highlight(highlightIndex + 1);
 				break;
 			case 27: // ESC key
-				setSuggestions([]);
+				setIsShowingList(false);
 				break;
 			default:
 				break;
@@ -110,8 +122,8 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 		// Set selected item to be input value
 		setInputValue(item.value);
 
-		// Empty the suggestion menu
-		setSuggestions([]);
+		// Hide the suggestion menu
+		setIsShowingList(false);
 
 		// Call onSelect function if it's provided
 		if (onSelect) {
@@ -130,19 +142,28 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 	/** Generate suggestion list */
 	const generateSuggestionList = () => {
 		return (
-			<ul className="suggestion-list">
-				{suggestions.map((item, index) => {
-					const classes = classNames('suggestion-item', {
-						'is-highlighted': index === highlightIndex
-					});
+			<Transition
+				in={isShowingList || isLoadingData}
+				animation="zoom-in-top"
+				timeout={300}
+				onExited={() => {
+					setSuggestions([]);
+				}}
+			>
+				<ul className="suggestion-list">
+					{suggestions.map((item, index) => {
+						const classes = classNames('suggestion-item', {
+							'is-highlighted': index === highlightIndex
+						});
 
-					return (
-						<li key={index} className={classes} onClick={() => handleItemSelect(item)}>
-							{renderTemplate(item)}
-						</li>
-					);
-				})}
-			</ul>
+						return (
+							<li key={index} className={classes} onClick={() => handleItemSelect(item)}>
+								{renderTemplate(item)}
+							</li>
+						);
+					})}
+				</ul>
+			</Transition>
 		);
 	};
 
@@ -150,7 +171,7 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 		<div className="auto-complete" ref={autoCompleteComponentRef}>
 			<Input value={inputValue} onChange={handleInputChange} onKeyDown={handleKeydown} {...restProps} />
 
-			{isLoading && (
+			{isLoadingData && (
 				<div className="suggestions-loading-icon">
 					<Icon icon="spinner" spin />
 				</div>
