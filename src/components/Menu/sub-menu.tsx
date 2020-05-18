@@ -16,17 +16,10 @@ export const SUBMENU = 'SubMenu';
 const SubMenu: React.FC<ISubMenuProps> = props => {
 	const { children, className, index, title } = props;
 	const menuContext = useContext(MenuContext);
-	const expandedSubMenus = menuContext.defaultExpandedVerticalSubMenus as Array<
-		string
-	>;
-	const isMenuExpandedByDefault =
-		index && menuContext.mode === MenuMode.Vertical
-			? expandedSubMenus.includes(index)
-			: false;
+	const expandedSubMenus = menuContext.defaultExpandedVerticalSubMenus as Array<string>;
+	const isMenuExpandedByDefault = index && menuContext.mode === MenuMode.Vertical ? expandedSubMenus.includes(index) : false;
 
-	const [isMenuExpanded, setIsMenuExpanded] = useState(
-		isMenuExpandedByDefault
-	);
+	const [isMenuExpanded, setIsMenuExpanded] = useState(isMenuExpandedByDefault);
 
 	const classes = classNames('menu-item submenu-item', className, {
 		'is-active': menuContext.currentActiveIndex === index,
@@ -74,33 +67,22 @@ const SubMenu: React.FC<ISubMenuProps> = props => {
 			'menu-expanded': isMenuExpanded
 		});
 
-		const childrenComponent = React.Children.map(
-			children,
-			(child, submenuIndex) => {
-				const childElement = child as FunctionComponentElement<
-					IMenuItemProps
-				>;
+		const childrenComponent = React.Children.map(children, (child, submenuIndex) => {
+			const childElement = child as FunctionComponentElement<IMenuItemProps>;
 
-				const { displayName } = childElement.type;
+			const { displayName } = childElement.type;
 
-				if (displayName === MENU_ITEM) {
-					return React.cloneElement(childElement, {
-						index: `${index}-${submenuIndex}`
-					});
-				} else {
-					console.error(
-						'Error: Menu has a child that is not a MenuItem component.'
-					);
-				}
+			if (displayName === MENU_ITEM) {
+				return React.cloneElement(childElement, {
+					index: `${index}-${submenuIndex}`
+				});
+			} else {
+				console.error('Error: Menu has a child that is not a MenuItem component.');
 			}
-		);
+		});
 
 		return (
-			<Transition
-				in={isMenuExpanded}
-				timeout={300}
-				animation="zoom-in-top"
-			>
+			<Transition in={isMenuExpanded} timeout={300} animation="zoom-in-top">
 				<ul className={subMenuClasses}>{childrenComponent}</ul>
 			</Transition>
 		);

@@ -8,9 +8,7 @@ export default {
 	title: 'Button'
 };
 
-export const defaultButton = () => (
-	<Button onClick={action('clicked')}>Default</Button>
-);
+export const defaultButton = () => <Button onClick={action('clicked')}>Default</Button>;
 
 export const buttonWithSize = () => (
 	<>

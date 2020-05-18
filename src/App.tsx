@@ -10,10 +10,7 @@ library.add(fas);
 function App() {
 	return (
 		<div className="App">
-			<Menu
-				onSelect={index => console.log(index)}
-				mode={MenuMode.Horizontal}
-			>
+			<Menu onSelect={index => console.log(index)} mode={MenuMode.Horizontal}>
 				<MenuItem>link 1</MenuItem>
 				<MenuItem>link 2</MenuItem>
 				<SubMenu title="Submenu">
@@ -25,11 +22,7 @@ function App() {
 
 			<hr />
 
-			<Menu
-				onSelect={index => console.log(index)}
-				mode={MenuMode.Vertical}
-				defaultExpandedVerticalSubMenus={['2']}
-			>
+			<Menu onSelect={index => console.log(index)} mode={MenuMode.Vertical} defaultExpandedVerticalSubMenus={['2']}>
 				<MenuItem>link 1</MenuItem>
 				<MenuItem>link 2</MenuItem>
 				<SubMenu title="Submenu">

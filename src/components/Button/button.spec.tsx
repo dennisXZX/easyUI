@@ -9,13 +9,13 @@ describe('Button component', () => {
 		defaultProps = {
 			disabled: false,
 			btnType: ButtonType.Default,
-			onClick: jest.fn(),
+			onClick: jest.fn()
 		};
 	});
 
 	it('should render correct default button', () => {
 		const buttonProps = {
-			...defaultProps,
+			...defaultProps
 		};
 
 		const wrapper = render(<Button {...buttonProps}>Button</Button>);
@@ -36,7 +36,7 @@ describe('Button component', () => {
 			...defaultProps,
 			btnType: ButtonType.Primary,
 			size: ButtonSize.Large,
-			className: 'test-class',
+			className: 'test-class'
 		};
 
 		const wrapper = render(<Button {...buttonProps}>Button</Button>);
@@ -50,7 +50,7 @@ describe('Button component', () => {
 		const buttonProps = {
 			...defaultProps,
 			btnType: ButtonType.Link,
-			href: 'http://dummyurl',
+			href: 'http://dummyurl'
 		};
 
 		const wrapper = render(<Button {...buttonProps}>Link</Button>);
@@ -64,7 +64,7 @@ describe('Button component', () => {
 	it('should render a disabled button when disabled attribute is set to true', () => {
 		const buttonProps = {
 			...defaultProps,
-			disabled: true,
+			disabled: true
 		};
 
 		const wrapper = render(<Button {...buttonProps}>Button</Button>);

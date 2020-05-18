@@ -14,34 +14,13 @@ interface IPlayerProps {
 }
 
 export const simpleAutoComplete = () => {
-	const lakers = [
-		'bradley',
-		'pope',
-		'caruso',
-		'cook',
-		'cousins',
-		'james',
-		'AD',
-		'green',
-		'howard',
-		'kuzma',
-		'McGee',
-		'rando'
-	];
+	const lakers = ['bradley', 'pope', 'caruso', 'cook', 'cousins', 'james', 'AD', 'green', 'howard', 'kuzma', 'McGee', 'rando'];
 
 	const handleFetch = (query: string) => {
-		return lakers
-			.filter(name => name.includes(query))
-			.map(name => ({ value: name }));
+		return lakers.filter(name => name.includes(query)).map(name => ({ value: name }));
 	};
 
-	return (
-		<AutoComplete
-			style={{ width: '300px' }}
-			fetchSuggestions={handleFetch}
-			onSelect={action('selected')}
-		/>
-	);
+	return <AutoComplete style={{ width: '300px' }} fetchSuggestions={handleFetch} onSelect={action('selected')} />;
 };
 
 export const customTemplateAutoComplete = () => {
@@ -73,14 +52,7 @@ export const customTemplateAutoComplete = () => {
 		);
 	};
 
-	return (
-		<AutoComplete
-			style={{ width: '300px' }}
-			fetchSuggestions={handleFetch}
-			onSelect={action('selected')}
-			renderOption={renderOption}
-		/>
-	);
+	return <AutoComplete style={{ width: '300px' }} fetchSuggestions={handleFetch} onSelect={action('selected')} renderOption={renderOption} />;
 };
 
 export const asynchronousAutoComplete = () => {
@@ -89,17 +61,9 @@ export const asynchronousAutoComplete = () => {
 			.then(res => res.json())
 			.then(({ items }) => {
 				console.log(items);
-				return items
-					.slice(0, 10)
-					.map((item: any) => ({ value: item.login, ...item }));
+				return items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }));
 			});
 	};
 
-	return (
-		<AutoComplete
-			style={{ width: '300px' }}
-			fetchSuggestions={handleFetch}
-			onSelect={action('selected')}
-		/>
-	);
+	return <AutoComplete style={{ width: '300px' }} fetchSuggestions={handleFetch} onSelect={action('selected')} />;
 };

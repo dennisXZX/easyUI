@@ -1,12 +1,4 @@
-import React, {
-	FC,
-	useState,
-	ChangeEvent,
-	KeyboardEvent,
-	ReactElement,
-	useEffect,
-	useRef
-} from 'react';
+import React, { FC, useState, ChangeEvent, KeyboardEvent, ReactElement, useEffect, useRef } from 'react';
 import Input, { IInputProps } from '../Input/input';
 import Icon from '../Icon/icon';
 import useDebounce from '../../hooks/useDebounce';
@@ -20,21 +12,13 @@ interface IDataSourceObject {
 export type DataSourceType<T = {}> = T & IDataSourceObject;
 
 export interface IAutoCompleteProps extends Omit<IInputProps, 'onSelect'> {
-	fetchSuggestions: (
-		str: string
-	) => DataSourceType[] | Promise<DataSourceType[]>;
+	fetchSuggestions: (str: string) => DataSourceType[] | Promise<DataSourceType[]>;
 	onSelect?: (item: DataSourceType) => void;
 	renderOption?: (item: DataSourceType) => ReactElement;
 }
 
 const AutoComplete: FC<IAutoCompleteProps> = props => {
-	const {
-		fetchSuggestions,
-		onSelect,
-		value,
-		renderOption,
-		...restProps
-	} = props;
+	const { fetchSuggestions, onSelect, value, renderOption, ...restProps } = props;
 
 	const [inputValue, setInputValue] = useState((value as string) || '');
 	const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
@@ -134,11 +118,7 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 					});
 
 					return (
-						<li
-							key={index}
-							className={classes}
-							onClick={() => handleItemSelect(item)}
-						>
+						<li key={index} className={classes} onClick={() => handleItemSelect(item)}>
 							{renderTemplate(item)}
 						</li>
 					);
@@ -149,12 +129,7 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 
 	return (
 		<div className="auto-complete" ref={componentRef}>
-			<Input
-				value={inputValue}
-				onChange={handleInputChange}
-				onKeyDown={handleKeydown}
-				{...restProps}
-			/>
+			<Input value={inputValue} onChange={handleInputChange} onKeyDown={handleKeydown} {...restProps} />
 
 			{isLoading && (
 				<ul>

@@ -8,8 +8,7 @@ export enum InputSize {
 	Small = 'sm'
 }
 
-export interface IInputProps
-	extends Omit<React.InputHTMLAttributes<HTMLElement>, 'size'> {
+export interface IInputProps extends Omit<React.InputHTMLAttributes<HTMLElement>, 'size'> {
 	disabled?: boolean;
 	size?: InputSize;
 	icon?: IconProp;
@@ -19,15 +18,7 @@ export interface IInputProps
 }
 
 const Input: FC<IInputProps> = props => {
-	const {
-		disabled,
-		size,
-		icon,
-		prepend,
-		append,
-		style,
-		...restProps
-	} = props;
+	const { disabled, size, icon, prepend, append, style, ...restProps } = props;
 
 	const classes = classNames('input-wrapper', classNames, {
 		[`input-size-${size}`]: size,

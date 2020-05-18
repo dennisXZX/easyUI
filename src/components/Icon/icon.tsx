@@ -1,9 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import {
-	FontAwesomeIcon,
-	FontAwesomeIconProps
-} from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 
 export enum ThemeType {
 	Primary = 'primary',

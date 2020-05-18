@@ -31,19 +31,9 @@ export const MenuContext = createContext<IMenuContext>({
 });
 
 const Menu: React.FC<IMenuProps> = props => {
-	const {
-		children,
-		className,
-		defaultActiveIndex,
-		defaultExpandedVerticalSubMenus,
-		mode,
-		onSelect,
-		style
-	} = props;
+	const { children, className, defaultActiveIndex, defaultExpandedVerticalSubMenus, mode, onSelect, style } = props;
 
-	const [currentActiveIndex, setCurrentActiveIndex] = useState(
-		defaultActiveIndex
-	);
+	const [currentActiveIndex, setCurrentActiveIndex] = useState(defaultActiveIndex);
 
 	const classes = classNames('menu', className, {
 		'menu-vertical': mode === MenuMode.Vertical,
@@ -65,9 +55,7 @@ const Menu: React.FC<IMenuProps> = props => {
 
 	const renderMenuItems = () => {
 		return React.Children.map(children, (child, index) => {
-			const childElement = child as React.FunctionComponentElement<
-				IMenuItemProps
-			>;
+			const childElement = child as React.FunctionComponentElement<IMenuItemProps>;
 
 			const { displayName } = childElement.type;
 
@@ -76,18 +64,14 @@ const Menu: React.FC<IMenuProps> = props => {
 					index: index.toString()
 				});
 			} else {
-				console.error(
-					'Error: Menu has a child that is not a MenuItem component.'
-				);
+				console.error('Error: Menu has a child that is not a MenuItem component.');
 			}
 		});
 	};
 
 	return (
 		<ul className={classes} style={style} data-testid="test-menu">
-			<MenuContext.Provider value={menuContext}>
-				{renderMenuItems()}
-			</MenuContext.Provider>
+			<MenuContext.Provider value={menuContext}>{renderMenuItems()}</MenuContext.Provider>
 		</ul>
 	);
 };
