@@ -3,7 +3,7 @@ import Input, { IInputProps } from '../Input/input';
 import Icon from '../Icon/icon';
 import useDebounce from '../../hooks/useDebounce';
 import classNames from 'classnames';
-import useClickOutside from '../../hooks/useClickOutside';
+import useClickOutsideComponent from '../../hooks/useClickOutsideComponent';
 
 interface IDataSourceObject {
 	value: string;
@@ -28,8 +28,8 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 	const triggerSearchRef = useRef(false);
 	const autoCompleteComponentRef = useRef<HTMLDivElement>(null);
 
-	/** Change handler for input */
-	useClickOutside(autoCompleteComponentRef, () => {
+	/** Hide the suggestion list when user clicks outside of the component */
+	useClickOutsideComponent(autoCompleteComponentRef, () => {
 		setSuggestions([]);
 	});
 
