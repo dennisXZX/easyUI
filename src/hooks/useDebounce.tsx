@@ -1,19 +1,30 @@
 import { useEffect, useState } from 'react';
 
-function useDebounce(value: any, delay = 300) {
-	const [debounceValue, setDebounceValue] = useState(value);
+/**
+ * Debounce a value with the provided delay
+ *
+ * @param {any} value - The value that need to be debounced
+ * @param {number} delay - The time to delay
+ *
+ * @returns {T} - The debounced value
+ *  */
+function useDebounce<T>(value: T, delay = 300): T {
+	const [debouncedValue, setDebouncedValue] = useState(value);
 
+	// Use a setTimeout() to set the debouced value after the provided delay,
+	// If the `value` changes, the setTimeoutHandler will first be cleared,
+	// so setDebouncedValue() will be not be executed
 	useEffect(() => {
-		const handler = window.setTimeout(() => {
-			setDebounceValue(value);
+		const setTimeoutHandler = setTimeout(() => {
+			setDebouncedValue(value);
 		}, delay);
 
 		return () => {
-			clearTimeout(handler);
+			clearTimeout(setTimeoutHandler);
 		};
 	}, [value, delay]);
 
-	return debounceValue;
+	return debouncedValue;
 }
 
 export default useDebounce;

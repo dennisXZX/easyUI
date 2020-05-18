@@ -23,18 +23,24 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 	const [inputValue, setInputValue] = useState((value as string) || '');
 	const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
-	const debouncedValue = useDebounce(inputValue, 500);
 	const [highlightIndex, setHighlightIndex] = useState(-1);
-	const triggerSearch = useRef(false);
-	const componentRef = useRef<HTMLDivElement>(null);
-	useClickOutside(componentRef, () => {
+	const debouncedValue = useDebounce<string>(inputValue, 500);
+	const triggerSearchRef = useRef(false);
+	const autoCompleteComponentRef = useRef<HTMLDivElement>(null);
+
+	/** Change handler for input */
+	useClickOutside(autoCompleteComponentRef, () => {
 		setSuggestions([]);
 	});
 
 	useEffect(() => {
-		if (debouncedValue && triggerSearch.current) {
+		// Use useRef to keep track of whether a search should be performed
+		const shouldTriggerSearch = triggerSearchRef.current;
+
+		if (debouncedValue && shouldTriggerSearch) {
 			const results = fetchSuggestions(debouncedValue);
 
+			// Handle asynchronously if the results is a Promise
 			if (results instanceof Promise) {
 				setIsLoading(true);
 
@@ -49,16 +55,21 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 			setSuggestions([]);
 		}
 
+		// Reset hightlight item every time a new suggestion list is generated
 		setHighlightIndex(-1);
 	}, [debouncedValue, fetchSuggestions]);
 
+	/** Change handler for input */
 	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const inputValue = event.target.value.trim();
 
 		setInputValue(inputValue);
-		triggerSearch.current = true;
+
+		// Any change to the input value should trigger a search
+		triggerSearchRef.current = true;
 	};
 
+	/** Calculate which item should be highlighted */
 	const highlight = (index: number) => {
 		if (index < 0) {
 			index = 0;
@@ -71,6 +82,7 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 		setHighlightIndex(index);
 	};
 
+	/** Keydown handler for input */
 	const handleKeydown = (event: KeyboardEvent<HTMLInputElement>) => {
 		switch (event.keyCode) {
 			case 13: // Enter key
@@ -93,23 +105,30 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 		}
 	};
 
+	/** Click handler for suggestion list item */
 	const handleItemSelect = (item: DataSourceType) => {
+		// Set selected item to be input value
 		setInputValue(item.value);
 
+		// Empty the suggestion menu
 		setSuggestions([]);
 
+		// Call onSelect function if it's provided
 		if (onSelect) {
 			onSelect(item);
 		}
 
-		triggerSearch.current = false;
+		// Select an item from the suggestion list should not trigger a search
+		triggerSearchRef.current = false;
 	};
 
+	/** Render a custom template if it's provided, otherwise, plain value will be rendered */
 	const renderTemplate = (item: DataSourceType) => {
 		return renderOption ? renderOption(item) : item.value;
 	};
 
-	const generateDropdown = () => {
+	/** Generate suggestion list */
+	const generateSuggestionList = () => {
 		return (
 			<ul>
 				{suggestions.map((item, index) => {
@@ -128,7 +147,7 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 	};
 
 	return (
-		<div className="auto-complete" ref={componentRef}>
+		<div className="auto-complete" ref={autoCompleteComponentRef}>
 			<Input value={inputValue} onChange={handleInputChange} onKeyDown={handleKeydown} {...restProps} />
 
 			{isLoading && (
@@ -136,7 +155,7 @@ const AutoComplete: FC<IAutoCompleteProps> = props => {
 					<Icon icon="spinner" spin />
 				</ul>
 			)}
-			{suggestions.length > 0 && generateDropdown()}
+			{suggestions.length > 0 && generateSuggestionList()}
 		</div>
 	);
 };
