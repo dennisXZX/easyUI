@@ -1,6 +1,6 @@
 import React from 'react';
 import { config } from 'react-transition-group';
-import { render, RenderResult, fireEvent, wait } from '@testing-library/react';
+import { render, RenderResult, fireEvent, wait, screen } from '@testing-library/react';
 import AutoComplete, { IAutoCompleteProps } from './auto-complete';
 
 // Disable waits in Transition
@@ -14,7 +14,16 @@ const testArray = [
 	{ value: 'c', number: 15 }
 ];
 
-const testProps: IAutoCompleteProps = {
+const testRenderOption = (item: any) => {
+	return (
+		<>
+			<h2 data-testid="custom-render-option">Name: {item.value}</h2>
+			<h2 data-testid="custom-render-option">Number: {item.number}</h2>
+		</>
+	);
+};
+
+const baseTestProps: IAutoCompleteProps = {
 	fetchSuggestions: query => testArray.filter(item => item.value.includes(query)),
 	onSelect: jest.fn(),
 	placeholder: 'auto-complete'
@@ -23,16 +32,13 @@ const testProps: IAutoCompleteProps = {
 let wrapper: RenderResult, inputNode: HTMLInputElement;
 
 describe('AutoComplete component', () => {
-	beforeEach(() => {
-		wrapper = render(<AutoComplete {...testProps} />);
-		inputNode = wrapper.getByPlaceholderText('auto-complete') as HTMLInputElement;
-	});
-
 	it('test basic AutoComplete behavior', async () => {
-		// Change input
+		wrapper = render(<AutoComplete {...baseTestProps} />);
+		inputNode = wrapper.getByPlaceholderText('auto-complete') as HTMLInputElement;
+
 		fireEvent.change(inputNode, { target: { value: 'a' } });
 
-		// Suggestion item should show in the list after debounced time
+		// Suggestion items should show in the list after debounced time
 		await wait(() => {
 			expect(wrapper.queryByText('ab')).toBeInTheDocument();
 		});
@@ -42,7 +48,7 @@ describe('AutoComplete component', () => {
 
 		// Select the first item
 		fireEvent.click(wrapper.getByText('ab'));
-		expect(testProps.onSelect).toHaveBeenCalledWith({ value: 'ab', number: 11 });
+		expect(baseTestProps.onSelect).toHaveBeenCalledWith({ value: 'ab', number: 11 });
 
 		// Suggestion item should not show in the list after being selected
 		expect(wrapper.queryByText('ab')).not.toBeInTheDocument();
@@ -52,10 +58,12 @@ describe('AutoComplete component', () => {
 	});
 
 	it('should provide keyboard support', async () => {
-		// Change input
+		wrapper = render(<AutoComplete {...baseTestProps} />);
+		inputNode = wrapper.getByPlaceholderText('auto-complete') as HTMLInputElement;
+
 		fireEvent.change(inputNode, { target: { value: 'a' } });
 
-		// Suggestion item should show in the list after debounced time
+		// Suggestion items should show in the list after debounced time
 		await wait(() => {
 			expect(wrapper.queryByText('ab')).toBeInTheDocument();
 		});
@@ -77,17 +85,19 @@ describe('AutoComplete component', () => {
 
 		// Press enter
 		fireEvent.keyDown(inputNode, { keyCode: 13 });
-		expect(testProps.onSelect).toHaveBeenCalledWith({ value: 'ab', number: 11 });
+		expect(baseTestProps.onSelect).toHaveBeenCalledWith({ value: 'ab', number: 11 });
 
 		// Suggestion list should not show after pressing enter
 		expect(wrapper.queryByText('ab')).not.toBeInTheDocument();
 	});
 
 	it('click outside of component should hide suggestion list', async () => {
-		// Change input
+		wrapper = render(<AutoComplete {...baseTestProps} />);
+		inputNode = wrapper.getByPlaceholderText('auto-complete') as HTMLInputElement;
+
 		fireEvent.change(inputNode, { target: { value: 'a' } });
 
-		// Suggestion item should show in the list after debounced time
+		// Suggestion items should show in the list after debounced time
 		await wait(() => {
 			expect(wrapper.queryByText('ab')).toBeInTheDocument();
 		});
@@ -99,7 +109,15 @@ describe('AutoComplete component', () => {
 		expect(wrapper.queryByText('ab')).not.toBeInTheDocument();
 	});
 
-	// it('renderOption should generate the right template', () => {});
+	it('renderOption should generate the right template', async () => {
+		wrapper = render(<AutoComplete {...baseTestProps} renderOption={testRenderOption} />);
+		inputNode = wrapper.getByPlaceholderText('auto-complete') as HTMLInputElement;
 
-	// it('async fetchSuggestions should works fine', () => {});
+		fireEvent.change(inputNode, { target: { value: 'a' } });
+
+		// Suggestion items with custom render template should show in the list after debounced time
+		await wait(() => {
+			expect(wrapper.getAllByTestId('custom-render-option').length).toEqual(4);
+		});
+	});
 });
