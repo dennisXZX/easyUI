@@ -37,11 +37,12 @@
 		"clean": "rimraf ./dist",
 		"eject": "react-scripts eject",
 		"format": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
-		"lint": "eslint --ext .tsx src --color",
+		"lint": "eslint --ext .tsx src --color --max-warnings 5",
 		"start": "react-scripts start",
 		"test": "react-scripts test",
+		"test:ci": "cross-env CI=true react-scripts test",
 		"storybook": "start-storybook -p 9009 -s public",
-		"prepublish": "yarn build"
+		"prepublish": "yarn test:ci && yarn lint && yarn build"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -77,17 +78,18 @@
 		"@types/react-dom": "^16.9.0",
 		"@types/react-transition-group": "^4.2.4",
 		"@types/storybook__addon-info": "^5.2.1",
+		"cross-env": "^7.0.2",
 		"eslint-config-prettier": "^6.10.1",
 		"eslint-config-react-app": "^5.2.1",
 		"eslint-plugin-prettier": "^3.1.2",
-		"react": "^16.13.1",
-		"react-dom": "^16.13.1",
 		"husky": "^4.2.3",
 		"lint-staged": "^10.1.2",
+		"node-sass": "^4.13.1",
 		"prettier": "^2.0.4",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
 		"react-scripts": "3.4.1",
 		"rimraf": "^3.0.2",
-		"typescript": "~3.7.2",
-		"node-sass": "^4.13.1"
+		"typescript": "~3.7.2"
 	}
 }
