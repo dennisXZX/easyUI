@@ -13,16 +13,17 @@
 		"react-transition-group": "^4.3.0"
 	},
 	"scripts": {
-		"lint": "eslint --ext .tsx src --color",
-		"format": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
-		"start": "react-scripts start",
-		"build": "yarn build-ts && yarn build-css",
-		"build-ts": "tsc -p tsconfig.build.json",
+		"build": "yarn clean && yarn build-ts && yarn build-css",
 		"build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
-		"test": "react-scripts test",
+		"build-ts": "tsc -p tsconfig.build.json",
+		"build-storybook": "build-storybook -s public",
+		"clean": "rimraf ./dist",
 		"eject": "react-scripts eject",
-		"storybook": "start-storybook -p 9009 -s public",
-		"build-storybook": "build-storybook -s public"
+		"format": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
+		"lint": "eslint --ext .tsx src --color",
+		"start": "react-scripts start",
+		"test": "react-scripts test",
+		"storybook": "start-storybook -p 9009 -s public"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -48,15 +49,6 @@
 		"@storybook/addons": "^5.3.18",
 		"@storybook/preset-create-react-app": "^2.1.1",
 		"@storybook/react": "^5.3.18",
-		"@types/storybook__addon-info": "^5.2.1",
-		"eslint-config-prettier": "^6.10.1",
-		"eslint-config-react-app": "^5.2.1",
-		"eslint-plugin-prettier": "^3.1.2",
-		"husky": "^4.2.3",
-		"lint-staged": "^10.1.2",
-		"react-scripts": "3.4.1",
-		"typescript": "~3.7.2",
-		"prettier": "^2.0.4",
 		"@testing-library/jest-dom": "^4.2.4",
 		"@testing-library/react": "^9.3.2",
 		"@testing-library/user-event": "^7.1.2",
@@ -65,6 +57,16 @@
 		"@types/node": "^12.0.0",
 		"@types/react": "^16.9.0",
 		"@types/react-dom": "^16.9.0",
-		"@types/react-transition-group": "^4.2.4"
+		"@types/react-transition-group": "^4.2.4",
+		"@types/storybook__addon-info": "^5.2.1",
+		"eslint-config-prettier": "^6.10.1",
+		"eslint-config-react-app": "^5.2.1",
+		"eslint-plugin-prettier": "^3.1.2",
+		"husky": "^4.2.3",
+		"lint-staged": "^10.1.2",
+		"prettier": "^2.0.4",
+		"react-scripts": "3.4.1",
+		"rimraf": "^3.0.2",
+		"typescript": "~3.7.2"
 	}
 }
