@@ -1,5 +1,5 @@
 {
-	"name": "easy-ui",
+	"name": "easy-react-ui",
 	"version": "0.1.0",
 	"private": false,
 	"description": "EasyUI - an easy-going React components library",
@@ -39,7 +39,8 @@
 		"lint": "eslint --ext .tsx src --color",
 		"start": "react-scripts start",
 		"test": "react-scripts test",
-		"storybook": "start-storybook -p 9009 -s public"
+		"storybook": "start-storybook -p 9009 -s public",
+		"prepublish": "yarn build"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
