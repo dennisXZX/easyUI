@@ -1,6 +1,6 @@
 import React from 'react';
 import { config } from 'react-transition-group';
-import { render, RenderResult, fireEvent, wait, screen } from '@testing-library/react';
+import { render, RenderResult, fireEvent, wait } from '@testing-library/react';
 import AutoComplete, { IAutoCompleteProps } from './auto-complete';
 
 // Disable waits in Transition
