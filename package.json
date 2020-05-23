@@ -1,6 +1,6 @@
 {
 	"name": "easy-react-ui",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"private": false,
 	"description": "EasyUI - an easy-going React components library",
 	"author": "Dennis Xiao",
@@ -42,7 +42,7 @@
 		"test": "react-scripts test",
 		"test:ci": "cross-env CI=true react-scripts test",
 		"storybook": "start-storybook -p 9009 -s public",
-		"prepublish": "yarn test:ci && yarn lint && yarn build"
+		"prepublishOnly": "yarn test:ci && yarn lint && yarn build"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
