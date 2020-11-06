@@ -1,6 +1,14 @@
 ## EasyUI
 
-A design system powered by React & Typescript, supported by Storybook & React-testing-library
+A design system powered by React & Typescript, supported by Storybook & React-testing-library.
+
+## Design Thinking Process
+
+- `SCSS` is chosen as the styling solution for this UI library
+- `normalize.css` is used to make browsers render all elements more consistently
+- SCSS variables are defined for granular style control
+- Typescript is used to provide strong typing to the UI library
+- Unit tests are written with the help of `React Testing Library`
 
 ## Available Scripts
 

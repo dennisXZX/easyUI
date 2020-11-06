@@ -18,8 +18,8 @@ describe('Button component', () => {
 			...defaultProps
 		};
 
-		const wrapper = render(<Button {...buttonProps}>Button</Button>);
-		const element = wrapper.getByText('Button') as HTMLButtonElement;
+		const renderResult = render(<Button {...buttonProps}>Button</Button>);
+		const element = renderResult.getByText('Button') as HTMLButtonElement;
 
 		expect(element).toBeInTheDocument();
 		expect(element.tagName).toEqual('BUTTON');
@@ -39,8 +39,8 @@ describe('Button component', () => {
 			className: 'test-class'
 		};
 
-		const wrapper = render(<Button {...buttonProps}>Button</Button>);
-		const element = wrapper.getByText('Button');
+		const renderResult = render(<Button {...buttonProps}>Button</Button>);
+		const element = renderResult.getByText('Button');
 
 		expect(element).toBeInTheDocument();
 		expect(element).toHaveClass('btn-primary btn-lg test-class');
@@ -53,8 +53,8 @@ describe('Button component', () => {
 			href: 'http://dummyurl'
 		};
 
-		const wrapper = render(<Button {...buttonProps}>Link</Button>);
-		const element = wrapper.getByText('Link');
+		const renderResult = render(<Button {...buttonProps}>Link</Button>);
+		const element = renderResult.getByText('Link');
 
 		expect(element).toBeInTheDocument();
 		expect(element.tagName).toEqual('A');
@@ -67,8 +67,8 @@ describe('Button component', () => {
 			disabled: true
 		};
 
-		const wrapper = render(<Button {...buttonProps}>Button</Button>);
-		const element = wrapper.getByText('Button') as HTMLButtonElement;
+		const renderResult = render(<Button {...buttonProps}>Button</Button>);
+		const element = renderResult.getByText('Button') as HTMLButtonElement;
 
 		expect(element).toBeInTheDocument();
 		expect(element.disabled).toBeTruthy();
