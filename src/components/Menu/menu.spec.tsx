@@ -18,6 +18,7 @@ jest.mock('react-transition-group', () => {
 	};
 });
 
+// Helper method to generate a Menu component
 const generateMenu = (props: IMenuProps) => {
 	return (
 		<Menu {...props}>
@@ -31,6 +32,7 @@ const generateMenu = (props: IMenuProps) => {
 	);
 };
 
+// Helper method to generate a <style> element
 const createStyleFile = () => {
 	const cssFile = `
 		.submenu {
@@ -44,6 +46,7 @@ const createStyleFile = () => {
 
 	const style = document.createElement('style');
 	style.innerHTML = cssFile;
+
 	return style;
 };
 
@@ -70,6 +73,8 @@ describe('Menu and MenuItem component', () => {
 
 		expect(menuElement).toBeInTheDocument();
 		expect(menuElement).toHaveClass('menu test');
+		// Here ':scope' pseudo-class matches menuElement, we use ':scope' to get direct li descendant of menuElement
+		// https://developer.mozilla.org/en-US/docs/Web/CSS/:scope
 		expect(menuElement.querySelectorAll(':scope > li').length).toEqual(4);
 		expect(activeElement).toHaveClass('menu-item is-active');
 		expect(disabledElement).toHaveClass('menu-item is-disabled');
@@ -85,6 +90,7 @@ describe('Menu and MenuItem component', () => {
 		const thirdItem = wrapper.getByText('link');
 
 		fireEvent.click(thirdItem);
+
 		expect(thirdItem).toHaveClass('menu-item is-active');
 		expect(activeElement).not.toHaveClass('is-active');
 		expect(defaultProps.onSelect).toHaveBeenCalledWith('2');
@@ -99,6 +105,7 @@ describe('Menu and MenuItem component', () => {
 		const disabledElement = wrapper.getByText('disabled');
 
 		fireEvent.click(disabledElement);
+
 		expect(disabledElement).not.toHaveClass('is-active');
 		expect(defaultProps.onSelect).not.toHaveBeenCalled();
 	});
@@ -122,7 +129,7 @@ describe('Menu and MenuItem component', () => {
 		};
 
 		const wrapper = render(generateMenu(menuProps));
-		// Add CSS file to menu so we can test its visibility
+		// Add <style> to wrapper HTML element so we can test Menu component visibility
 		wrapper.container.append(createStyleFile());
 
 		// Submenu options are not visible by default
@@ -153,6 +160,7 @@ describe('Menu and MenuItem component', () => {
 		};
 
 		const wrapper = render(generateMenu(menuProps));
+		// Add <style> to wrapper HTML element so we can test Menu component visibility
 		wrapper.container.append(createStyleFile());
 
 		expect(wrapper.queryByText('submenuOption1')).not.toBeVisible();
