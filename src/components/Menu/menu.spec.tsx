@@ -66,10 +66,10 @@ describe('Menu and MenuItem component', () => {
 			...defaultProps
 		};
 
-		const wrapper = render(generateMenu(menuProps));
-		const menuElement = wrapper.getByTestId('test-menu');
-		const activeElement = wrapper.getByText('active');
-		const disabledElement = wrapper.getByText('disabled');
+		const renderResult = render(generateMenu(menuProps));
+		const menuElement = renderResult.getByTestId('test-menu');
+		const activeElement = renderResult.getByText('active');
+		const disabledElement = renderResult.getByText('disabled');
 
 		expect(menuElement).toBeInTheDocument();
 		expect(menuElement).toHaveClass('menu test');
@@ -85,9 +85,9 @@ describe('Menu and MenuItem component', () => {
 			...defaultProps
 		};
 
-		const wrapper = render(generateMenu(menuProps));
-		const activeElement = wrapper.getByText('active');
-		const thirdItem = wrapper.getByText('link');
+		const renderResult = render(generateMenu(menuProps));
+		const activeElement = renderResult.getByText('active');
+		const thirdItem = renderResult.getByText('link');
 
 		fireEvent.click(thirdItem);
 
@@ -101,8 +101,8 @@ describe('Menu and MenuItem component', () => {
 			...defaultProps
 		};
 
-		const wrapper = render(generateMenu(menuProps));
-		const disabledElement = wrapper.getByText('disabled');
+		const renderResult = render(generateMenu(menuProps));
+		const disabledElement = renderResult.getByText('disabled');
 
 		fireEvent.click(disabledElement);
 
@@ -116,8 +116,8 @@ describe('Menu and MenuItem component', () => {
 			mode: MenuMode.Vertical
 		};
 
-		const wrapper = render(generateMenu(menuProps));
-		const menuElement = wrapper.getByTestId('test-menu');
+		const renderResult = render(generateMenu(menuProps));
+		const menuElement = renderResult.getByTestId('test-menu');
 
 		expect(menuElement).toHaveClass('menu-vertical');
 	});
@@ -128,28 +128,28 @@ describe('Menu and MenuItem component', () => {
 			mode: MenuMode.Horizontal
 		};
 
-		const wrapper = render(generateMenu(menuProps));
+		const renderResult = render(generateMenu(menuProps));
 		// Add <style> to wrapper HTML element so we can test Menu component visibility
-		wrapper.container.append(createStyleFile());
+		renderResult.container.append(createStyleFile());
 
 		// Submenu options are not visible by default
-		expect(wrapper.queryByText('submenuOption1')).not.toBeVisible();
+		expect(renderResult.queryByText('submenuOption1')).not.toBeVisible();
 
-		const submenuElement = wrapper.getByText('subMenu');
+		const submenuElement = renderResult.getByText('subMenu');
 		fireEvent.mouseEnter(submenuElement);
 
 		// We need to wait here because setTimeout() is used to toggle submenu visibility
 		await wait(() => {
-			expect(wrapper.queryByText('submenuOption1')).toBeVisible();
+			expect(renderResult.queryByText('submenuOption1')).toBeVisible();
 		});
 
-		fireEvent.click(wrapper.getByText('submenuOption1'));
+		fireEvent.click(renderResult.getByText('submenuOption1'));
 		expect(menuProps.onSelect).toHaveBeenCalledWith('3-0');
 
 		fireEvent.mouseLeave(submenuElement);
 
 		await wait(() => {
-			expect(wrapper.queryByText('submenuOption1')).not.toBeVisible();
+			expect(renderResult.queryByText('submenuOption1')).not.toBeVisible();
 		});
 	});
 
@@ -159,16 +159,16 @@ describe('Menu and MenuItem component', () => {
 			mode: MenuMode.Vertical
 		};
 
-		const wrapper = render(generateMenu(menuProps));
+		const renderResult = render(generateMenu(menuProps));
 		// Add <style> to wrapper HTML element so we can test Menu component visibility
-		wrapper.container.append(createStyleFile());
+		renderResult.container.append(createStyleFile());
 
-		expect(wrapper.queryByText('submenuOption1')).not.toBeVisible();
+		expect(renderResult.queryByText('submenuOption1')).not.toBeVisible();
 
-		const submenuElement = wrapper.getByText('subMenu');
+		const submenuElement = renderResult.getByText('subMenu');
 		fireEvent.click(submenuElement);
 
-		expect(wrapper.getByText('submenuOption1')).toBeVisible();
+		expect(renderResult.getByText('submenuOption1')).toBeVisible();
 	});
 
 	it('should expand relevant submenu menu by default if defaultExpandedVerticalSubMenus is provided', () => {
@@ -178,8 +178,8 @@ describe('Menu and MenuItem component', () => {
 			defaultExpandedVerticalSubMenus: ['3']
 		};
 
-		const wrapper = render(generateMenu(menuProps));
+		const renderResult = render(generateMenu(menuProps));
 
-		expect(wrapper.getByText('submenuOption1')).toBeVisible();
+		expect(renderResult.getByText('submenuOption1')).toBeVisible();
 	});
 });

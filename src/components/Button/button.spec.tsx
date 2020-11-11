@@ -19,14 +19,14 @@ describe('Button component', () => {
 		};
 
 		const renderResult = render(<Button {...buttonProps}>Button</Button>);
-		const element = renderResult.getByText('Button') as HTMLButtonElement;
+		const buttonElement = renderResult.getByText('Button') as HTMLButtonElement;
 
-		expect(element).toBeInTheDocument();
-		expect(element.tagName).toEqual('BUTTON');
-		expect(element).toHaveClass('btn btn-default');
-		expect(element.disabled).toBeFalsy();
+		expect(buttonElement).toBeInTheDocument();
+		expect(buttonElement.tagName).toEqual('BUTTON');
+		expect(buttonElement).toHaveClass('btn btn-default');
+		expect(buttonElement.disabled).toBeFalsy();
 
-		fireEvent.click(element);
+		fireEvent.click(buttonElement);
 
 		expect(defaultProps.onClick).toHaveBeenCalled();
 	});
@@ -40,10 +40,10 @@ describe('Button component', () => {
 		};
 
 		const renderResult = render(<Button {...buttonProps}>Button</Button>);
-		const element = renderResult.getByText('Button');
+		const buttonElement = renderResult.getByText('Button');
 
-		expect(element).toBeInTheDocument();
-		expect(element).toHaveClass('btn-primary btn-lg test-class');
+		expect(buttonElement).toBeInTheDocument();
+		expect(buttonElement).toHaveClass('btn-primary btn-lg test-class');
 	});
 
 	it('should render a link when btnType is ButtonType.Link and href attribute is provided', () => {
@@ -54,11 +54,11 @@ describe('Button component', () => {
 		};
 
 		const renderResult = render(<Button {...buttonProps}>Link</Button>);
-		const element = renderResult.getByText('Link');
+		const linkElement = renderResult.getByText('Link');
 
-		expect(element).toBeInTheDocument();
-		expect(element.tagName).toEqual('A');
-		expect(element).toHaveClass('btn btn-link');
+		expect(linkElement).toBeInTheDocument();
+		expect(linkElement.tagName).toEqual('A');
+		expect(linkElement).toHaveClass('btn btn-link');
 	});
 
 	it('should render a disabled button when disabled attribute is set to true', () => {
@@ -68,12 +68,12 @@ describe('Button component', () => {
 		};
 
 		const renderResult = render(<Button {...buttonProps}>Button</Button>);
-		const element = renderResult.getByText('Button') as HTMLButtonElement;
+		const buttonElement = renderResult.getByText('Button') as HTMLButtonElement;
 
-		expect(element).toBeInTheDocument();
-		expect(element.disabled).toBeTruthy();
+		expect(buttonElement).toBeInTheDocument();
+		expect(buttonElement.disabled).toBeTruthy();
 
-		fireEvent.click(element);
+		fireEvent.click(buttonElement);
 
 		expect(buttonProps.onClick).not.toHaveBeenCalled();
 	});
