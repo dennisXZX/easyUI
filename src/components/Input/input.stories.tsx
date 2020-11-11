@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { action } from '@storybook/addon-actions';
 import Input, { InputSize } from './input';
 import '../../styles/index.scss';
@@ -8,11 +8,23 @@ export default {
 	title: 'Input'
 };
 
-export const defaultInput = () => <Input style={{ width: '300px' }} placeholder="placeholder" onChange={action('changed')} />;
+export const ControlledInput = () => {
+	const [inputValue, setInputValue] = useState('');
 
-export const disabledInput = () => <Input style={{ width: '300px' }} placeholder="disabled input" disabled />;
+	const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+		console.log(`Input value: ${e.target.value}`);
 
-export const inputWithIcon = () => <Input style={{ width: '300px' }} placeholder="input with icon" icon="search" />;
+		setInputValue(e.target.value);
+	};
+
+	return <Input style={{ width: '300px' }} value={inputValue} onChange={changeHandler} />;
+};
+
+export const DefaultInput = () => <Input style={{ width: '300px' }} placeholder="placeholder" onChange={action('changed')} />;
+
+export const DisabledInput = () => <Input style={{ width: '300px' }} placeholder="disabled input" disabled />;
+
+export const InputWithIcon = () => <Input style={{ width: '300px' }} placeholder="input with icon" icon="search" />;
 
 export const InputWithSize = () => (
 	<>
@@ -22,6 +34,6 @@ export const InputWithSize = () => (
 	</>
 );
 
-export const prependedInput = () => <Input style={{ width: '300px' }} defaultValue="dennisxiao.com" prepend="https://" />;
+export const PrependedInput = () => <Input style={{ width: '300px' }} defaultValue="dennisxiao.com" prepend="https://" />;
 
-export const apprendedInput = () => <Input style={{ width: '300px' }} defaultValue="google" append=".com" />;
+export const AppendedInput = () => <Input style={{ width: '300px' }} defaultValue="google" append=".com" />;
