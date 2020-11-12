@@ -10,7 +10,9 @@ const defaultProps: IInputProps = {
 describe('test Input component', () => {
 	it('should render the correct default Input', () => {
 		const renderResult = render(<Input {...defaultProps} />);
-		const inputElement = renderResult.getByPlaceholderText('test-input') as HTMLInputElement;
+		const inputElement = renderResult.getByPlaceholderText(
+			'test-input'
+		) as HTMLInputElement;
 
 		expect(inputElement).toBeInTheDocument();
 		expect(inputElement).toHaveClass('input-inner');
@@ -23,23 +25,33 @@ describe('test Input component', () => {
 
 	it('should render the disabled Input correctly', () => {
 		const renderResult = render(<Input disabled placeholder="disabled" />);
-		const inputElement = renderResult.getByPlaceholderText('disabled') as HTMLInputElement;
+		const inputElement = renderResult.getByPlaceholderText(
+			'disabled'
+		) as HTMLInputElement;
 
 		expect(inputElement.disabled).toBeTruthy();
 	});
 
 	it('should render different input sizes on size property', () => {
-		const renderResult = render(<Input placeholder="sizes" size={InputSize.Large} />);
-		const testContainer = renderResult.container.querySelector('.input-wrapper');
+		const renderResult = render(
+			<Input placeholder="sizes" size={InputSize.Large} />
+		);
+		const testContainer = renderResult.container.querySelector(
+			'.input-wrapper'
+		);
 
 		expect(testContainer).toHaveClass('input-size-lg');
 	});
 
 	it('should render prepend and append element on prepend/append property', () => {
 		const renderResult = render(<Input prepend="https://" append=".com" />);
-		const testContainer = renderResult.container.querySelector('.input-wrapper');
+		const testContainer = renderResult.container.querySelector(
+			'.input-wrapper'
+		);
 
-		expect(testContainer).toHaveClass('input-group input-group-append input-group-prepend');
+		expect(testContainer).toHaveClass(
+			'input-group input-group-append input-group-prepend'
+		);
 		expect(renderResult.queryByText('https://')).toBeInTheDocument();
 		expect(renderResult.queryByText('.com')).toBeInTheDocument();
 	});

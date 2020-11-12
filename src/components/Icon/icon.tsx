@@ -1,6 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
+import {
+	FontAwesomeIcon,
+	FontAwesomeIconProps
+} from '@fortawesome/react-fontawesome';
 
 // Define themes for Icon component
 export enum ThemeType {

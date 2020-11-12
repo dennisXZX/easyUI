@@ -20,13 +20,20 @@ const SubMenu: React.FC<ISubMenuProps> = props => {
 	const menuContext = useContext(MenuContext);
 
 	// Cast defaultExpandedVerticalSubMenus property as an array of strings, so later we can apply array methods on it
-	const expandedVerticalSubMenus = menuContext.defaultExpandedVerticalSubMenus as Array<string>;
+	const expandedVerticalSubMenus = menuContext.defaultExpandedVerticalSubMenus as Array<
+		string
+	>;
 
 	// Check if the vertical menu should be expanded
-	const isMenuExpandedByDefault = index && menuContext.mode === MenuMode.Vertical ? expandedVerticalSubMenus.includes(index) : false;
+	const isMenuExpandedByDefault =
+		index && menuContext.mode === MenuMode.Vertical
+			? expandedVerticalSubMenus.includes(index)
+			: false;
 
 	// This piece of state is used to control whether menu should be expanded or not
-	const [isMenuExpanded, setIsMenuExpanded] = useState(isMenuExpandedByDefault);
+	const [isMenuExpanded, setIsMenuExpanded] = useState(
+		isMenuExpandedByDefault
+	);
 
 	// Prepare CSS classes
 	const classes = classNames('menu-item submenu-item', className, {
@@ -82,26 +89,37 @@ const SubMenu: React.FC<ISubMenuProps> = props => {
 		});
 
 		// Use React.Children to map over children element
-		const childrenComponent = React.Children.map(children, (child, submenuIndex) => {
-			// Convert each child element into FunctionComponentElement so Typescript can recognise its properties
-			const childElement = child as FunctionComponentElement<IMenuItemProps>;
+		const childrenComponent = React.Children.map(
+			children,
+			(child, submenuIndex) => {
+				// Convert each child element into FunctionComponentElement so Typescript can recognise its properties
+				const childElement = child as FunctionComponentElement<
+					IMenuItemProps
+				>;
 
-			const { displayName } = childElement.type;
+				const { displayName } = childElement.type;
 
-			// Check whether it's a valid child nested inside <SUBMENU> component
-			if (displayName === MENU_ITEM) {
-				// Use cloneElement() to add new property to the component
-				// Here we pass 'index' property to each child element of <SUBMENU>
-				return React.cloneElement(childElement, {
-					index: `${index}-${submenuIndex}`
-				});
-			} else {
-				console.error('Error: Menu has a child that is not a MenuItem component.');
+				// Check whether it's a valid child nested inside <SUBMENU> component
+				if (displayName === MENU_ITEM) {
+					// Use cloneElement() to add new property to the component
+					// Here we pass 'index' property to each child element of <SUBMENU>
+					return React.cloneElement(childElement, {
+						index: `${index}-${submenuIndex}`
+					});
+				} else {
+					console.error(
+						'Error: Menu has a child that is not a MenuItem component.'
+					);
+				}
 			}
-		});
+		);
 
 		return (
-			<Transition in={isMenuExpanded} timeout={300} animation="zoom-in-top">
+			<Transition
+				in={isMenuExpanded}
+				timeout={300}
+				animation="zoom-in-top"
+			>
 				<ul className={subMenuClasses}>{childrenComponent}</ul>
 			</Transition>
 		);

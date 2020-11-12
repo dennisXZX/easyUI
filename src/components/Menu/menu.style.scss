@@ -27,7 +27,8 @@
 		&.is-active,
 		&:hover {
 			color: $menu-item-active-color;
-			border-bottom: $menu-item-active-border-width solid $menu-item-active-color;
+			border-bottom: $menu-item-active-border-width solid
+				$menu-item-active-color;
 		}
 	}
 
@@ -110,7 +111,8 @@
 		&.is-active,
 		&:hover {
 			border-bottom: 0;
-			border-left: $menu-item-active-border-width solid $menu-item-active-color;
+			border-left: $menu-item-active-border-width solid
+				$menu-item-active-color;
 		}
 	}
 }

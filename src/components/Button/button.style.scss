@@ -13,7 +13,12 @@
 	box-shadow: $btn-box-shadow;
 	cursor: pointer;
 	transition: $btn-transition;
-	@include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $border-radius);
+	@include button-size(
+		$btn-padding-y,
+		$btn-padding-x,
+		$btn-font-size,
+		$border-radius
+	);
 
 	&:focus {
 		outline: none;
@@ -32,11 +37,21 @@
 }
 
 .btn-lg {
-	@include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
+	@include button-size(
+		$btn-padding-y-lg,
+		$btn-padding-x-lg,
+		$btn-font-size-lg,
+		$btn-border-radius-lg
+	);
 }
 
 .btn-sm {
-	@include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm);
+	@include button-size(
+		$btn-padding-y-sm,
+		$btn-padding-x-sm,
+		$btn-font-size-sm,
+		$btn-border-radius-sm
+	);
 }
 
 .btn-primary {
@@ -48,7 +63,14 @@
 }
 
 .btn-default {
-	@include button-style($white, $gray-400, $body-color, $white, $primary, $primary);
+	@include button-style(
+		$white,
+		$gray-400,
+		$body-color,
+		$white,
+		$primary,
+		$primary
+	);
 }
 
 .btn-link {

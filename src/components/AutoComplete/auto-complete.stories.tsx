@@ -15,13 +15,34 @@ interface IPlayerProps {
 
 // Simple AutoComplete
 export const simpleAutoComplete = () => {
-	const lakers = ['bradley', 'pope', 'caruso', 'cook', 'cousins', 'james', 'AD', 'green', 'howard', 'kuzma', 'McGee', 'rando'];
+	const lakers = [
+		'bradley',
+		'pope',
+		'caruso',
+		'cook',
+		'cousins',
+		'james',
+		'AD',
+		'green',
+		'howard',
+		'kuzma',
+		'McGee',
+		'rando'
+	];
 
 	const handleFetch = (query: string) => {
-		return lakers.filter(name => name.includes(query)).map(name => ({ value: name }));
+		return lakers
+			.filter(name => name.includes(query))
+			.map(name => ({ value: name }));
 	};
 
-	return <AutoComplete placeholder="Input a player name" fetchSuggestions={handleFetch} onSelect={action('selected')} />;
+	return (
+		<AutoComplete
+			placeholder="Input a player name"
+			fetchSuggestions={handleFetch}
+			onSelect={action('selected')}
+		/>
+	);
 };
 
 // Custom Template AutoComplete
@@ -54,7 +75,14 @@ export const customTemplateAutoComplete = () => {
 		);
 	};
 
-	return <AutoComplete placeholder="Input a player name" fetchSuggestions={handleFetch} onSelect={action('selected')} renderOption={renderOption} />;
+	return (
+		<AutoComplete
+			placeholder="Input a player name"
+			fetchSuggestions={handleFetch}
+			onSelect={action('selected')}
+			renderOption={renderOption}
+		/>
+	);
 };
 
 // Asynchronous AutoComplete
@@ -64,11 +92,19 @@ export const asynchronousAutoComplete = () => {
 		return fetch(`https://api.github.com/search/users?q=${query}`)
 			.then(res => res.json())
 			.then(({ items }) => {
-				const formattedItems = items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }));
+				const formattedItems = items
+					.slice(0, 10)
+					.map((item: any) => ({ value: item.login, ...item }));
 
 				return formattedItems;
 			});
 	};
 
-	return <AutoComplete placeholder="Input a Github username" fetchSuggestions={handleFetch} onSelect={action('selected')} />;
+	return (
+		<AutoComplete
+			placeholder="Input a Github username"
+			fetchSuggestions={handleFetch}
+			onSelect={action('selected')}
+		/>
+	);
 };

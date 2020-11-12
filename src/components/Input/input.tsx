@@ -10,7 +10,8 @@ export enum InputSize {
 
 // Since InputHTMLAttributes already has a 'size' property which is a number type
 // Here we omit the number 'size' property from InputHTMLAttributes and use our own 'size' property
-export interface IInputProps extends Omit<React.InputHTMLAttributes<HTMLElement>, 'size'> {
+export interface IInputProps
+	extends Omit<React.InputHTMLAttributes<HTMLElement>, 'size'> {
 	// Whether to disable Input element
 	disabled?: boolean;
 	// Set the size of the Input element, 'lg' or 'sm'
@@ -28,7 +29,15 @@ export interface IInputProps extends Omit<React.InputHTMLAttributes<HTMLElement>
 }
 
 export const Input: FC<IInputProps> = props => {
-	const { disabled, size, icon, prepend, append, style, ...restProps } = props;
+	const {
+		disabled,
+		size,
+		icon,
+		prepend,
+		append,
+		style,
+		...restProps
+	} = props;
 
 	// Prepare CSS classes
 	const classes = classNames('input-wrapper', classNames, {

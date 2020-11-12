@@ -19,7 +19,9 @@ describe('Button component', () => {
 		};
 
 		const renderResult = render(<Button {...buttonProps}>Button</Button>);
-		const buttonElement = renderResult.getByText('Button') as HTMLButtonElement;
+		const buttonElement = renderResult.getByText(
+			'Button'
+		) as HTMLButtonElement;
 
 		expect(buttonElement).toBeInTheDocument();
 		expect(buttonElement.tagName).toEqual('BUTTON');
@@ -68,7 +70,9 @@ describe('Button component', () => {
 		};
 
 		const renderResult = render(<Button {...buttonProps}>Button</Button>);
-		const buttonElement = renderResult.getByText('Button') as HTMLButtonElement;
+		const buttonElement = renderResult.getByText(
+			'Button'
+		) as HTMLButtonElement;
 
 		expect(buttonElement).toBeInTheDocument();
 		expect(buttonElement.disabled).toBeTruthy();

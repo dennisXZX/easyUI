@@ -35,9 +35,19 @@ export const MenuContext = createContext<IMenuContext>({
 });
 
 const Menu: React.FC<IMenuProps> = props => {
-	const { children, className, defaultActiveIndex, defaultExpandedVerticalSubMenus, mode, onSelect, style } = props;
+	const {
+		children,
+		className,
+		defaultActiveIndex,
+		defaultExpandedVerticalSubMenus,
+		mode,
+		onSelect,
+		style
+	} = props;
 
-	const [currentActiveIndex, setCurrentActiveIndex] = useState(defaultActiveIndex);
+	const [currentActiveIndex, setCurrentActiveIndex] = useState(
+		defaultActiveIndex
+	);
 
 	// Prepare CSS classes
 	const classes = classNames('menu', className, {
@@ -67,7 +77,9 @@ const Menu: React.FC<IMenuProps> = props => {
 		// Use React.Children to map over children element
 		return React.Children.map(children, (child, index) => {
 			// Convert each child element into FunctionComponentElement so Typescript can recognise its properties
-			const childElement = child as React.FunctionComponentElement<IMenuItemProps>;
+			const childElement = child as React.FunctionComponentElement<
+				IMenuItemProps
+			>;
 
 			const { displayName } = childElement.type;
 
@@ -80,7 +92,9 @@ const Menu: React.FC<IMenuProps> = props => {
 					index: index.toString()
 				});
 			} else {
-				console.error('Error: Menu has a child that is not a MenuItem component.');
+				console.error(
+					'Error: Menu has a child that is not a MenuItem component.'
+				);
 			}
 		});
 	};
@@ -88,7 +102,9 @@ const Menu: React.FC<IMenuProps> = props => {
 	return (
 		<ul className={classes} style={style} data-testid="test-menu">
 			{/* Provide props to children elements through Context */}
-			<MenuContext.Provider value={menuContext}>{renderMenuItems()}</MenuContext.Provider>
+			<MenuContext.Provider value={menuContext}>
+				{renderMenuItems()}
+			</MenuContext.Provider>
 		</ul>
 	);
 };

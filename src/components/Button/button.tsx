@@ -25,12 +25,23 @@ interface IBaseButtonProps {
 // Button component expects all native button and anchor HTML attributes
 // We use intersection type to combine multiple types into one
 // Partial makes all these native props optional, because <button> and <a> have different attributes
-type INativeButtonProps = IBaseButtonProps & React.ButtonHTMLAttributes<HTMLElement>;
-type IAnchorButtonProps = IBaseButtonProps & React.AnchorHTMLAttributes<HTMLElement>;
-export type IButtonProps = Partial<INativeButtonProps> & Partial<IAnchorButtonProps>;
+type INativeButtonProps = IBaseButtonProps &
+	React.ButtonHTMLAttributes<HTMLElement>;
+type IAnchorButtonProps = IBaseButtonProps &
+	React.AnchorHTMLAttributes<HTMLElement>;
+export type IButtonProps = Partial<INativeButtonProps> &
+	Partial<IAnchorButtonProps>;
 
 const Button: React.FC<IButtonProps> = props => {
-	const { btnType, children, className, disabled, href, size, ...restProps } = props;
+	const {
+		btnType,
+		children,
+		className,
+		disabled,
+		href,
+		size,
+		...restProps
+	} = props;
 
 	// Dynamically generate class names, e.g. 'btn btn-primary btn-lg'
 	// Add 'disabled' class name only for link button

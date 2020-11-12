@@ -149,7 +149,9 @@ describe('Menu and MenuItem component', () => {
 		fireEvent.mouseLeave(submenuElement);
 
 		await wait(() => {
-			expect(renderResult.queryByText('submenuOption1')).not.toBeVisible();
+			expect(
+				renderResult.queryByText('submenuOption1')
+			).not.toBeVisible();
 		});
 	});
 
