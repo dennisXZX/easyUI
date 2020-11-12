@@ -36,6 +36,7 @@ describe('AutoComplete component', () => {
 		wrapper = render(<AutoComplete {...baseTestProps} />);
 		inputNode = wrapper.getByPlaceholderText('auto-complete') as HTMLInputElement;
 
+		// Change input value
 		fireEvent.change(inputNode, { target: { value: 'a' } });
 
 		// Suggestion items should show in the list after debounced time
@@ -46,14 +47,14 @@ describe('AutoComplete component', () => {
 		// Should have two suggestion items
 		expect(wrapper.container.querySelectorAll('.suggestion-item').length).toEqual(2);
 
-		// Select the first item
+		// Select one of the suggestion items
 		fireEvent.click(wrapper.getByText('ab'));
 		expect(baseTestProps.onSelect).toHaveBeenCalledWith({ value: 'ab', number: 11 });
 
 		// Suggestion item should not show in the list after being selected
 		expect(wrapper.queryByText('ab')).not.toBeInTheDocument();
 
-		// Selected item value should populate the input
+		// Select a suggestion item value should populate the Input value
 		expect(inputNode.value).toBe('ab');
 	});
 
@@ -61,6 +62,7 @@ describe('AutoComplete component', () => {
 		wrapper = render(<AutoComplete {...baseTestProps} />);
 		inputNode = wrapper.getByPlaceholderText('auto-complete') as HTMLInputElement;
 
+		// Change input value
 		fireEvent.change(inputNode, { target: { value: 'a' } });
 
 		// Suggestion items should show in the list after debounced time
@@ -95,6 +97,7 @@ describe('AutoComplete component', () => {
 		wrapper = render(<AutoComplete {...baseTestProps} />);
 		inputNode = wrapper.getByPlaceholderText('auto-complete') as HTMLInputElement;
 
+		// Change input value
 		fireEvent.change(inputNode, { target: { value: 'a' } });
 
 		// Suggestion items should show in the list after debounced time
@@ -113,6 +116,7 @@ describe('AutoComplete component', () => {
 		wrapper = render(<AutoComplete {...baseTestProps} renderOption={testRenderOption} />);
 		inputNode = wrapper.getByPlaceholderText('auto-complete') as HTMLInputElement;
 
+		// Change input value
 		fireEvent.change(inputNode, { target: { value: 'a' } });
 
 		// Suggestion items with custom render template should show in the list after debounced time

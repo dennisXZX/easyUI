@@ -8,8 +8,10 @@ export default {
 	title: 'Button'
 };
 
+// Default Button
 export const defaultButton = () => <Button onClick={action('clicked')}>Default</Button>;
 
+// Button with Size
 export const buttonWithSize = () => (
 	<>
 		<Button onClick={action('clicked')} size={ButtonSize.Large}>
@@ -22,6 +24,7 @@ export const buttonWithSize = () => (
 	</>
 );
 
+// Button with Type
 export const buttonWithType = () => (
 	<>
 		<Button onClick={action('clicked')} btnType={ButtonType.Primary}>

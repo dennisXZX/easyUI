@@ -13,8 +13,10 @@ export default {
 	title: 'Icon'
 };
 
+// Default Icon
 export const defaultIcon = () => <Icon icon="ambulance" size="2x" />;
 
+// Icon with Different Themes
 export const IconWithTheme = () => (
 	<>
 		<Icon icon="ambulance" size="2x" theme={ThemeType.Primary} onClick={action('Primary Theme')} />

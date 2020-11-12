@@ -8,6 +8,7 @@ export default {
 	title: 'Input'
 };
 
+// Controlled Input
 export const ControlledInput = () => {
 	const [inputValue, setInputValue] = useState('');
 
@@ -20,12 +21,16 @@ export const ControlledInput = () => {
 	return <Input style={{ width: '300px' }} value={inputValue} onChange={changeHandler} />;
 };
 
+// Default Input
 export const DefaultInput = () => <Input style={{ width: '300px' }} placeholder="placeholder" onChange={action('changed')} />;
 
+// Disabled Input
 export const DisabledInput = () => <Input style={{ width: '300px' }} placeholder="disabled input" disabled />;
 
+// Input with Icon
 export const InputWithIcon = () => <Input style={{ width: '300px' }} placeholder="input with icon" icon="search" />;
 
+// Input with Size
 export const InputWithSize = () => (
 	<>
 		<Input style={{ width: '300px' }} defaultValue="large size" size={InputSize.Large} />
@@ -34,6 +39,8 @@ export const InputWithSize = () => (
 	</>
 );
 
+// Input with Prepended Text
 export const PrependedInput = () => <Input style={{ width: '300px' }} defaultValue="dennisxiao.com" prepend="https://" />;
 
+// Input with Appended Text
 export const AppendedInput = () => <Input style={{ width: '300px' }} defaultValue="google" append=".com" />;

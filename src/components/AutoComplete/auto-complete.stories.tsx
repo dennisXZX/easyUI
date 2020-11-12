@@ -13,6 +13,7 @@ interface IPlayerProps {
 	number: number;
 }
 
+// Simple AutoComplete
 export const simpleAutoComplete = () => {
 	const lakers = ['bradley', 'pope', 'caruso', 'cook', 'cousins', 'james', 'AD', 'green', 'howard', 'kuzma', 'McGee', 'rando'];
 
@@ -20,9 +21,10 @@ export const simpleAutoComplete = () => {
 		return lakers.filter(name => name.includes(query)).map(name => ({ value: name }));
 	};
 
-	return <AutoComplete fetchSuggestions={handleFetch} onSelect={action('selected')} />;
+	return <AutoComplete placeholder="Input a player name" fetchSuggestions={handleFetch} onSelect={action('selected')} />;
 };
 
+// Custom Template AutoComplete
 export const customTemplateAutoComplete = () => {
 	const playersWithNumber = [
 		{ value: 'bradley', number: 11 },
@@ -52,18 +54,21 @@ export const customTemplateAutoComplete = () => {
 		);
 	};
 
-	return <AutoComplete fetchSuggestions={handleFetch} onSelect={action('selected')} renderOption={renderOption} />;
+	return <AutoComplete placeholder="Input a player name" fetchSuggestions={handleFetch} onSelect={action('selected')} renderOption={renderOption} />;
 };
 
+// Asynchronous AutoComplete
 export const asynchronousAutoComplete = () => {
+	// Call Github API to retrieve user data
 	const handleFetch = (query: string) => {
 		return fetch(`https://api.github.com/search/users?q=${query}`)
 			.then(res => res.json())
 			.then(({ items }) => {
-				console.log(items);
-				return items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }));
+				const formattedItems = items.slice(0, 10).map((item: any) => ({ value: item.login, ...item }));
+
+				return formattedItems;
 			});
 	};
 
-	return <AutoComplete fetchSuggestions={handleFetch} onSelect={action('selected')} />;
+	return <AutoComplete placeholder="Input a Github username" fetchSuggestions={handleFetch} onSelect={action('selected')} />;
 };

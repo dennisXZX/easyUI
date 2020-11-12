@@ -10,6 +10,7 @@ export default {
 	title: 'Menu'
 };
 
+// Horizontal Menu
 export const horizontalMenu = () => {
 	const menuProps = {
 		defaultActiveIndex: '0',
@@ -32,6 +33,7 @@ export const horizontalMenu = () => {
 	);
 };
 
+// Vertical Menu
 export const verticalMenu = () => {
 	const menuProps = {
 		defaultActiveIndex: '0',

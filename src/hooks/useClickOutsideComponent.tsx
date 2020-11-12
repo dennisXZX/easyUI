@@ -8,14 +8,15 @@ import { RefObject, useEffect } from 'react';
  */
 function useClickOutsideComponent(componentRef: RefObject<HTMLElement>, handler: Function) {
 	useEffect(() => {
-		// Check whether user clicks outside of the provided element
+		// Check whether user clicks outside of the provided component
 		const listener = (event: MouseEvent) => {
 			// We does nothing if the click happens within the component
 			if (!componentRef.current || componentRef.current.contains(event.target as HTMLElement)) {
 				return;
 			}
 
-			handler(event);
+			// Execute the handler function if the click happens outside of the component
+			handler();
 		};
 
 		// Add the listener to document click event
