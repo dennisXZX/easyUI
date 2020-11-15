@@ -11,16 +11,22 @@
 @import 'animation';
 
 // Button
-@import '../components/Button/button.style';
+@import '../components/Button/button.style.scss';
 
 // Menu
-@import '../components/Menu/menu.style';
+@import '../components/Menu/menu.style.scss';
 
 // Icon
-@import '../components/Icon/icon.style';
+@import '../components/Icon/icon.style.scss';
 
 // Input
-@import '../components/Input/input.style';
+@import '../components/Input/input.style.scss';
 
 // AutoComplete
-@import '../components/AutoComplete/auto-complete.style';
+@import '../components/AutoComplete/auto-complete.style.scss';
+
+// Upload
+@import '../components/Upload/upload.style.scss';
+
+// Progress Bar
+@import '../components/Progress/progress.style.scss';
