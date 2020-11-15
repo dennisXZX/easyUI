@@ -14,25 +14,29 @@ export const Dragger: FC<DraggerProps> = props => {
 		'is-dragover': isDragOver
 	});
 
+	// File drop handler
 	const handleDrop = (e: DragEvent<HTMLElement>) => {
 		e.preventDefault();
 		setDragOver(false);
+
+		// Execute the onDropFile method passed from props
 		onDropFile(e.dataTransfer.files);
 	};
 
-	const handleDrag = (e: DragEvent<HTMLElement>, isOver: boolean) => {
+	// File drag handler
+	const handleDrag = (e: DragEvent<HTMLElement>, isDragOver: boolean) => {
 		e.preventDefault();
-		setDragOver(isOver);
+		setDragOver(isDragOver);
 	};
 
 	return (
 		<div
 			className={classes}
-			onDragOver={e => {
-				handleDrag(e, true);
+			onDragOver={event => {
+				handleDrag(event, true);
 			}}
-			onDragLeave={e => {
-				handleDrag(e, false);
+			onDragLeave={event => {
+				handleDrag(event, false);
 			}}
 			onDrop={handleDrop}
 		>

@@ -1,8 +1,7 @@
-import React, { ChangeEvent, Children, useRef, useState } from 'react';
 import axios from 'axios';
-import Button, { ButtonType } from '../Button/button';
-import UploadList from './uploadList';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import Dragger from './dragger';
+import UploadList from './uploadList';
 
 const DEFAULT_FILE_NAME = 'file';
 
@@ -54,7 +53,7 @@ export interface UploadProps {
 	accept?: string;
 	// Whether multiple files is allowed
 	multiple?: boolean;
-	// Whether drag and drop is enabled
+	// Whether drag and drop feature is enabled
 	isDraggable?: boolean;
 }
 
@@ -249,6 +248,21 @@ const Upload: React.FC<UploadProps> = props => {
 		}
 	};
 
+	// Determine whether upload file area supports drag and drop
+	const shouldGenerateDraggableArea = () => {
+		return isDraggable ? (
+			<Dragger
+				onDropFile={files => {
+					uploadFiles(files);
+				}}
+			>
+				{children}
+			</Dragger>
+		) : (
+			children
+		);
+	};
+
 	return (
 		<div className="upload-component">
 			<div
@@ -256,17 +270,7 @@ const Upload: React.FC<UploadProps> = props => {
 				style={{ display: 'inline-block' }}
 				onClick={handleClick}
 			>
-				{isDraggable ? (
-					<Dragger
-						onDropFile={files => {
-							uploadFiles(files);
-						}}
-					>
-						{children}
-					</Dragger>
-				) : (
-					children
-				)}
+				{shouldGenerateDraggableArea()}
 				<input
 					className="file-input"
 					type="file"

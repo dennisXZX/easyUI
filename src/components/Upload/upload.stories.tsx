@@ -47,7 +47,7 @@ const defaultFileList: UploadFile[] = [
 
 // In beforeUpload lifecycle, rename the file before upload
 // const renameFile = (file: File) => {
-// 	const newFile = new File([file], 'newName.docx', { type: file.type });
+// 	const newFile = new File([file], 'newName.doc', { type: file.type });
 
 // 	return Promise.resolve(newFile);
 // };
