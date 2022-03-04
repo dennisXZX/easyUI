@@ -25,8 +25,6 @@ Install project dependencies.
 
 Note: If you run into error during `yarn install`, please make sure you downgrade your `node` version to `v14` as `node-sass` in this project does not support the latest version of `node`.
 
-https://github.com/sass/node-sass/issues/3077
-
 ### `yarn build`
 
 Build the app for production in `dist` folder.
